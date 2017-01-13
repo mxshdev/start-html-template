@@ -1,0 +1,131 @@
+/* ======================================== >>>>> */
+/* = General Imports = */
+/* ======================================== >>>>> */
+@import "../font/font-awesome/font-awesome.min.css";
+@import "../font/ionicons/ionicons.min.css";
+@import "helpers";
+@import "variables";
+
+/* ======================================== >>>>> */
+/* = General styles = */
+/* ======================================== >>>>> */
+
+* {
+	outline: none !important;
+}
+
+html {
+	overflow-x: hidden;
+	
+	&.overlay {
+		overflow: hidden;
+	}
+}
+
+body {
+	font-family: sans-serif;
+}
+
+a {
+	@include general-transition;
+	
+	&:hover, &:focus, &:active {
+		text-decoration: none;
+	}
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* ======================================== >>>>> */
+/* = Header = */
+/* ======================================== >>>>> */
+
+.header {
+	
+}
+
+/* ======================================== >>>>> */
+/* = Main = */
+/* ======================================== >>>>> */
+
+.main {
+	
+}
+
+/* ======================================== >>>>> */
+/* = Footer = */
+/* ======================================== >>>>> */
+
+.footer {
+	
+}
+
+/* ======================================== >>>>> */
+/* = Sections = */
+/* ======================================== >>>>> */
+
+.section {
+	
+	/* ----- Page header ----- */
+	
+	&.page-header {
+		
+	}
+	
+}
+
+/* ======================================== >>>>> */
+/* = UI Modules = */
+/* ======================================== >>>>> */
+
+.ui {
+	
+	/* ----- Button ----- */
+	
+	&.button {
+		
+	}
+	
+	/* ----- Navigation ----- */
+	
+	&.navigation {
+		.menu-item-has-children {
+			& > .sub-menu {
+				display: none;
+			}
+			
+			&.opened {
+				& > .sub-menu {
+					display: block;
+				}
+			}
+		}
+	}
+	
+	/* ----- Tabs ----- */
+	
+	&.tabs {
+		.navigation-tabs {
+			.navigation-tab {
+				&.active {
+					
+				}
+			}
+		}
+		
+		.content-tabs {
+			.content-tab {
+				display: none;
+				
+				&.active {
+					display: block;
+				}
+			}
+		}
+	}
+	
+}

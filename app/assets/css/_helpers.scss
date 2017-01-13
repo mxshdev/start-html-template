@@ -1,0 +1,50 @@
+@import "variables";
+
+/* ----- Input placeholder ----- */
+
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content
+	}
+	&:-moz-placeholder {
+		@content
+	}
+	&::-moz-placeholder {
+		@content
+	}
+	&:-ms-input-placeholder {
+		@content
+	}
+}
+
+/* ----- General transition ----- */
+
+@mixin general-transition {
+	@media (min-width: $screen-md-min) {
+		transition: all .3s ease;
+	}
+}
+
+/* ----- Bootstrap container fixed width on small screen ----- */
+
+.container {
+	@media (max-width: $screen-xs-max) {
+		max-width: 320px;
+		width: 100%;
+	}
+}
+
+/* ----- Fixed bootstrap img responsive ----- */
+
+.img-responsive {
+	height: auto;
+	width: 100%;
+}
+
+/* ----- Flex align center block inner ----- */
+
+.align-items-center {
+	display: flex;
+	align-items: center;
+	flex-flow: row wrap;
+}
