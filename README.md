@@ -1,5 +1,5 @@
 # start-html
-Start HTML Template for html template or html application.
+Start HTML Template.
 #How start
 1. git clone https://github.com/Shmasya/start-html/
 2. cd start-html
