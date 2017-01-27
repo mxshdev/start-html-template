@@ -11,6 +11,7 @@ var gulp         = require('gulp'),
 		concat       = require('gulp-concat'),
 		autoprefixer = require('gulp-autoprefixer'),
 		insert       = require('gulp-insert'),
+		fileInclude  = require('gulp-file-include'),
 		argv         = require('yargs').argv;
 
 /* ======================================== >>>>> */
@@ -57,8 +58,9 @@ gulp.task('scripts-main', function() {
 /* ======================================== >>>>> */
 
 gulp.task('scripts-libs', function() {
-	return gulp.src(['./app/assets/js/libs/enabled/jquery.min.js', './app/assets/js/libs/enabled/*.js'])
-						 .pipe(concat('libs.min.js'))
+	return gulp.src(['./app/assets/js/libs.js'])
+						 .pipe(rename({ suffix: '.min', prefix: '' }))
+						 .pipe(fileInclude())
 						 .pipe(uglify())
 						 .on('error', onError)
 						 .pipe(gulp.dest('./app/assets/js/'));
@@ -71,8 +73,8 @@ gulp.task('scripts-libs', function() {
 gulp.task('watch', function() {
 	gulp.watch('./app/assets/css/*.scss', ['styles-main']);
 	gulp.watch('./app/assets/js/app.js', ['scripts-main']);
-	gulp.watch('./app/*.html').on('change', browserSync.reload);
 	gulp.watch('./app/assets/js/*.js').on('change', browserSync.reload);
+	gulp.watch('./app/**/*.html').on('change', browserSync.reload);
 });
 
 /* ======================================== >>>>> */

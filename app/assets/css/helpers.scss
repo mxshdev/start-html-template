@@ -1,21 +1,8 @@
 @import "variables";
 
-/* ----- Input placeholder ----- */
-
-@mixin placeholder {
-	&::-webkit-input-placeholder {
-		@content
-	}
-	&:-moz-placeholder {
-		@content
-	}
-	&::-moz-placeholder {
-		@content
-	}
-	&:-ms-input-placeholder {
-		@content
-	}
-}
+/* ======================================== >>>>> */
+/* = General helpers = */
+/* ======================================== >>>>> */
 
 /* ----- General transition ----- */
 
@@ -41,10 +28,19 @@
 	width: 100%;
 }
 
-/* ----- Flex align center block inner ----- */
+/* ----- Input placeholder ----- */
 
-.align-items-center {
-	display: flex;
-	align-items: center;
-	flex-flow: row wrap;
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content
+	}
+	&:-moz-placeholder {
+		@content
+	}
+	&::-moz-placeholder {
+		@content
+	}
+	&:-ms-input-placeholder {
+		@content
+	}
 }

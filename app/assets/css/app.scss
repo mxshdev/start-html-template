@@ -1,8 +1,8 @@
 /* ======================================== >>>>> */
 /* = General Imports = */
 /* ======================================== >>>>> */
-@import "../font/font-awesome/font-awesome.min.css";
-@import "../font/ionicons/ionicons.min.css";
+
+@import "../libs/bootstrap/bootstrap.min.css";
 @import "helpers";
 @import "variables";
 
@@ -27,7 +27,7 @@ body {
 }
 
 a {
-	@include general-transition;
+	text-decoration: none;
 	
 	&:hover, &:focus, &:active {
 		text-decoration: none;
@@ -79,7 +79,7 @@ ul {
 }
 
 /* ======================================== >>>>> */
-/* = UI Modules = */
+/* = UI Components = */
 /* ======================================== >>>>> */
 
 .ui {
@@ -87,7 +87,7 @@ ul {
 	/* ----- Button ----- */
 	
 	&.button {
-		
+		@include general-transition;
 	}
 	
 	/* ----- Navigation ----- */
