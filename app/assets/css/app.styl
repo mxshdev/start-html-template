@@ -1,10 +1,17 @@
 /* ======================================== >>>>> */
-/* = General Imports = */
+/* = Imports = */
 /* ======================================== >>>>> */
 
-@import "../libs/bootstrap/bootstrap.min.css";
+/* ----- External imports ----- */
+
+/* ----- General imports ----- */
+
 @import "helpers.styl";
 @import "variables.styl";
+
+/* ----- Lib imports ----- */
+
+@import "../libs/bootstrap/bootstrap.min.css";
 
 /* ======================================== >>>>> */
 /* = General styles = */
@@ -87,7 +94,7 @@ ul {
 	/* ----- Button ----- */
 
 	&.button {
-		@include general-transition;
+		general-transition();
 	}
 
 	/* ----- Navigation ----- */

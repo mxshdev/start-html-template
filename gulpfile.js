@@ -33,10 +33,13 @@ gulp.task('browser-sync', ['styles-main', 'scripts-main', 'scripts-libs'], funct
 
 gulp.task('styles-main', function() {
 	return gulp.src('./app/assets/css/app.styl')
-						 .pipe(stylus()).on('error', onError)
-						 .pipe(rename({ suffix: '.min', prefix: '' }))
+						 .pipe(stylus({
+							 'include css': true
+						 })).on('error', onError)
 						 .pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
+						 .pipe(gulp.dest('app/assets/css'))
 						 .pipe(cleanCSS())
+						 .pipe(rename({ suffix: '.min', prefix: '' }))
 						 .pipe(gulp.dest('app/assets/css'))
 						 .pipe(browserSync.stream());
 });
