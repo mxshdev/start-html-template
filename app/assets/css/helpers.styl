@@ -1,4 +1,4 @@
-@import "variables";
+@import "variables.styl";
 
 /* ======================================== >>>>> */
 /* = General helpers = */
@@ -6,7 +6,7 @@
 
 /* ----- General transition ----- */
 
-@mixin general-transition {
+general-transition() {
 	@media (min-width: $screen-md-min) {
 		transition: all .3s ease;
 	}
@@ -26,21 +26,4 @@
 .img-responsive {
 	height: auto;
 	width: 100%;
-}
-
-/* ----- Input placeholder ----- */
-
-@mixin placeholder {
-	&::-webkit-input-placeholder {
-		@content
-	}
-	&:-moz-placeholder {
-		@content
-	}
-	&::-moz-placeholder {
-		@content
-	}
-	&:-ms-input-placeholder {
-		@content
-	}
 }

@@ -3,8 +3,8 @@
 /* ======================================== >>>>> */
 
 @import "../libs/bootstrap/bootstrap.min.css";
-@import "helpers";
-@import "variables";
+@import "helpers.styl";
+@import "variables.styl";
 
 /* ======================================== >>>>> */
 /* = General styles = */
@@ -16,7 +16,7 @@
 
 html {
 	overflow-x: hidden;
-	
+
 	&.overlay {
 		overflow: hidden;
 	}
@@ -28,7 +28,7 @@ body {
 
 a {
 	text-decoration: none;
-	
+
 	&:hover, &:focus, &:active {
 		text-decoration: none;
 	}
@@ -45,7 +45,7 @@ ul {
 /* ======================================== >>>>> */
 
 .header {
-	
+
 }
 
 /* ======================================== >>>>> */
@@ -53,7 +53,7 @@ ul {
 /* ======================================== >>>>> */
 
 .main {
-	
+
 }
 
 /* ======================================== >>>>> */
@@ -61,7 +61,7 @@ ul {
 /* ======================================== >>>>> */
 
 .footer {
-	
+
 }
 
 /* ======================================== >>>>> */
@@ -69,13 +69,13 @@ ul {
 /* ======================================== >>>>> */
 
 .section {
-	
+
 	/* ----- Page header ----- */
-	
+
 	&.page-header {
-		
+
 	}
-	
+
 }
 
 /* ======================================== >>>>> */
@@ -83,21 +83,21 @@ ul {
 /* ======================================== >>>>> */
 
 .ui {
-	
+
 	/* ----- Button ----- */
-	
+
 	&.button {
 		@include general-transition;
 	}
-	
+
 	/* ----- Navigation ----- */
-	
+
 	&.navigation {
 		.menu-item-has-children {
 			& > .sub-menu {
 				display: none;
 			}
-			
+
 			&.opened {
 				& > .sub-menu {
 					display: block;
@@ -105,27 +105,27 @@ ul {
 			}
 		}
 	}
-	
+
 	/* ----- Tabs ----- */
-	
+
 	&.tabs {
 		.navigation-tabs {
 			.navigation-tab {
 				&.active {
-					
+
 				}
 			}
 		}
-		
+
 		.content-tabs {
 			.content-tab {
 				display: none;
-				
+
 				&.active {
 					display: block;
 				}
 			}
 		}
 	}
-	
+
 }

@@ -3,7 +3,6 @@
 /* ======================================== >>>>> */
 
 var gulp         = require('gulp'),
-		sass         = require('gulp-sass'),
 		cleanCSS     = require('gulp-clean-css'),
 		rename       = require('gulp-rename'),
 		browserSync  = require('browser-sync'),
@@ -12,7 +11,8 @@ var gulp         = require('gulp'),
 		autoprefixer = require('gulp-autoprefixer'),
 		insert       = require('gulp-insert'),
 		fileInclude  = require('gulp-file-include'),
-		argv         = require('yargs').argv;
+		argv         = require('yargs').argv,
+		stylus       = require('gulp-stylus');
 
 /* ======================================== >>>>> */
 /* = Browser Sync Init = */
@@ -32,8 +32,8 @@ gulp.task('browser-sync', ['styles-main', 'scripts-main', 'scripts-libs'], funct
 /* ======================================== >>>>> */
 
 gulp.task('styles-main', function() {
-	return gulp.src('./app/assets/css/app.scss')
-						 .pipe(sass()).on('error', onError)
+	return gulp.src('./app/assets/css/app.styl')
+						 .pipe(stylus()).on('error', onError)
 						 .pipe(rename({ suffix: '.min', prefix: '' }))
 						 .pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
 						 .pipe(cleanCSS())
@@ -71,7 +71,7 @@ gulp.task('scripts-libs', function() {
 /* ======================================== >>>>> */
 
 gulp.task('watch', function() {
-	gulp.watch('./app/assets/css/*.scss', ['styles-main']);
+	gulp.watch('./app/assets/css/*.styl', ['styles-main']);
 	gulp.watch('./app/assets/js/app.js', ['scripts-main']);
 	gulp.watch('./app/assets/js/*.js').on('change', browserSync.reload);
 	gulp.watch('./app/**/*.html').on('change', browserSync.reload);

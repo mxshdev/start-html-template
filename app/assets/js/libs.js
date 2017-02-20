@@ -1,1 +1,1 @@
-@@include('../libs/jquery/jquery.min.js');
+@@include('../libs/jquery/jquery.min.js')
