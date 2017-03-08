@@ -2,7 +2,7 @@
 /* = UI Modules = */
 /* ======================================== >>>>> */
 
-/* ----- Navigation ----- */
+/* ––––– Navigation ––––– */
 
 function initNavigationUIModule() {
 	var $menuItemHasChildren = $('.ui.navigation .menu-item-has-children');
@@ -27,7 +27,7 @@ $(window).resize(function() {
 	initNavigationUIModule();
 });
 
-/* ----- Tabs ----- */
+/* ––––– Tabs ––––– */
 
 function initTabsUIModule() {
 	var $navigationTab = $('.navigation-tabs .navigation-tab');

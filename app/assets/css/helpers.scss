@@ -1,10 +1,10 @@
-@import "variables.styl";
+@import "variables";
 
 /* ======================================== >>>>> */
 /* = General helpers = */
 /* ======================================== >>>>> */
 
-/* ----- General transition ----- */
+/* ––––– General transition ––––– */
 
 general-transition() {
 	@media (min-width: $screen-md-min) {
@@ -12,7 +12,7 @@ general-transition() {
 	}
 }
 
-/* ----- Bootstrap container fixed width on small screen ----- */
+/* ––––– Bootstrap container fixed width on small screen ––––– */
 
 .container {
 	@media (max-width: $screen-xs-max) {
@@ -21,7 +21,7 @@ general-transition() {
 	}
 }
 
-/* ----- Fixed bootstrap img responsive ----- */
+/* ––––– Fixed bootstrap img responsive ––––– */
 
 .img-responsive {
 	height: auto;

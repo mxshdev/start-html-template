@@ -2,14 +2,14 @@
 /* = Imports = */
 /* ======================================== >>>>> */
 
-/* ----- External imports ----- */
+/* ––––– External imports ––––– */
 
-/* ----- General imports ----- */
+/* ––––– General imports ––––– */
 
-@import "helpers.styl";
-@import "variables.styl";
+@import "helpers";
+@import "variables";
 
-/* ----- Lib imports ----- */
+/* ––––– Lib imports ––––– */
 
 @import "../libs/bootstrap/bootstrap.min.css";
 
@@ -77,7 +77,7 @@ ul {
 
 .section {
 
-	/* ----- Page header ----- */
+	/* ––––– Page header ––––– */
 
 	&.page-header {
 
@@ -91,13 +91,13 @@ ul {
 
 .ui {
 
-	/* ----- Button ----- */
+	/* ––––– Button ––––– */
 
 	&.button {
 		general-transition();
 	}
 
-	/* ----- Navigation ----- */
+	/* ––––– Navigation ––––– */
 
 	&.navigation {
 		.menu-item-has-children {
@@ -113,7 +113,7 @@ ul {
 		}
 	}
 
-	/* ----- Tabs ----- */
+	/* ––––– Tabs ––––– */
 
 	&.tabs {
 		.navigation-tabs {
