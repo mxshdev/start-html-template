@@ -6,7 +6,7 @@
 
 /* ––––– General transition ––––– */
 
-general-transition() {
+@mixin general-transition() {
 	@media (min-width: $screen-md-min) {
 		transition: all .3s ease;
 	}
