@@ -1,16 +1,11 @@
 /* ======================================== >>>>> */
 /* = Imports = */
 /* ======================================== >>>>> */
-
 /* ––––– External imports ––––– */
-
 /* ––––– General imports ––––– */
-
 @import 'helpers';
 @import 'variables';
-
 /* ––––– Lib imports ––––– */
-
 @import '../libs/flexboxgrid/flexboxgrid.min.css';
 
 /* ======================================== >>>>> */
@@ -23,8 +18,8 @@
 
 html {
 	overflow-x: hidden;
-
-	&.overlay {
+	
+	&.is-overlay {
 		overflow: hidden;
 	}
 }
@@ -35,16 +30,10 @@ body {
 
 a {
 	text-decoration: none;
-
+	
 	&:hover, &:focus, &:active {
 		text-decoration: none;
 	}
-}
-
-ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
 }
 
 /* ======================================== >>>>> */
@@ -52,7 +41,7 @@ ul {
 /* ======================================== >>>>> */
 
 .header {
-
+	
 }
 
 /* ======================================== >>>>> */
@@ -60,7 +49,7 @@ ul {
 /* ======================================== >>>>> */
 
 .main {
-
+	
 }
 
 /* ======================================== >>>>> */
@@ -68,7 +57,7 @@ ul {
 /* ======================================== >>>>> */
 
 .footer {
-
+	
 }
 
 /* ======================================== >>>>> */
@@ -76,13 +65,7 @@ ul {
 /* ======================================== >>>>> */
 
 .section {
-
-	/* ––––– Page header ––––– */
-
-	&.page-header {
-
-	}
-
+	
 }
 
 /* ======================================== >>>>> */
@@ -90,49 +73,49 @@ ul {
 /* ======================================== >>>>> */
 
 .ui {
-
+	
 	/* ––––– Button ––––– */
-
+	
 	&.button {
 		@include general-transition();
 	}
-
+	
 	/* ––––– Navigation ––––– */
-
+	
 	&.navigation {
 		.menu-item-has-children {
 			& > .sub-menu {
 				display: none;
 			}
-
-			&.opened {
+			
+			&.is-opened {
 				& > .sub-menu {
 					display: block;
 				}
 			}
 		}
 	}
-
+	
 	/* ––––– Tabs ––––– */
-
+	
 	&.tabs {
 		.navigation-tabs {
 			.navigation-tab {
-				&.active {
-
+				&.is-active {
+					
 				}
 			}
 		}
-
+		
 		.content-tabs {
 			.content-tab {
 				display: none;
-
-				&.active {
+				
+				&.is-active {
 					display: block;
 				}
 			}
 		}
 	}
-
+	
 }

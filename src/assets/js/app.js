@@ -1,3 +1,7 @@
+/* ======================================== >>>>> */
+/* = jQuery = */
+/* ======================================== >>>>> */
+
 $(function() {
 	
 	/* ======================================== >>>>> */
@@ -13,12 +17,12 @@ $(function() {
 		
 		if ($(window).width() < 992) {
 			$menuItemHasChildren.click(function() {
-				$(this).toggleClass('opened');
+				$(this).toggleClass('is-opened');
 			});
 		}
 		else {
 			$menuItemHasChildren.hover(function() {
-				$(this).toggleClass('opened');
+				$(this).toggleClass('is-opened');
 			});
 		}
 	}
@@ -35,11 +39,11 @@ $(function() {
 		var $navigationTab = $('.navigation-tabs .navigation-tab');
 		
 		$navigationTab.click(function() {
-			$(this).parent().children('.active').removeClass('active');
-			$(this).addClass('active');
+			$(this).parent().children('.is-active').removeClass('is-active');
+			$(this).addClass('is-active');
 			var $tabsContent = $('.content-tabs[data-tabs-content="' + $(this).parent().data('tabs-content') + '"]');
-			$tabsContent.children('.active').removeClass('active');
-			$tabsContent.children('.content-tab').eq($(this).index()).addClass('active');
+			$tabsContent.children('.is-active').removeClass('is-active');
+			$tabsContent.children('.content-tab').eq($(this).index()).addClass('is-active');
 		});
 	}
 	
