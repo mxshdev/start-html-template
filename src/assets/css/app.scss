@@ -6,12 +6,12 @@
 
 /* ––––– General imports ––––– */
 
-@import "helpers";
-@import "variables";
+@import 'helpers';
+@import 'variables';
 
 /* ––––– Lib imports ––––– */
 
-@import "../libs/bootstrap/bootstrap.min.css";
+@import '../libs/flexboxgrid/flexboxgrid.min.css';
 
 /* ======================================== >>>>> */
 /* = General styles = */
@@ -94,7 +94,7 @@ ul {
 	/* ––––– Button ––––– */
 
 	&.button {
-		general-transition();
+		@include general-transition();
 	}
 
 	/* ––––– Navigation ––––– */
