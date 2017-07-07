@@ -2,27 +2,27 @@
 /* = General variables = */
 /* ======================================== >>>>> */
 
-var gulp         = require('gulp'),
-		csso         = require('gulp-csso'),
-		rename       = require('gulp-rename'),
-		browserSync  = require('browser-sync'),
-		uglify       = require('gulp-uglify'),
-		concat       = require('gulp-concat'),
-		autoprefixer = require('gulp-autoprefixer'),
-		insert       = require('gulp-insert'),
-		fileInclude  = require('gulp-file-include'),
-		argv         = require('yargs').argv,
-		sass         = require('gulp-sass'),
-		zip          = require('gulp-zip'),
-		fs           = require('fs');
+var gulp = require('gulp'),
+	csso = require('gulp-csso'),
+	rename = require('gulp-rename'),
+	browserSync = require('browser-sync'),
+	uglify = require('gulp-uglify'),
+	concat = require('gulp-concat'),
+	autoprefixer = require('gulp-autoprefixer'),
+	insert = require('gulp-insert'),
+	fileInclude = require('gulp-file-include'),
+	argv = require('yargs').argv,
+	sass = require('gulp-sass'),
+	zip = require('gulp-zip'),
+	fs = require('fs');
 
 /* ––––– Build settings ––––– */
 
-var srcPath  = './src';
+var srcPath = './src';
 var destPath = './dest';
 
 if (argv.srcPath == 'this') {
-	srcPath  = '..';
+	srcPath = '..';
 	destPath = '..';
 }
 
@@ -34,8 +34,7 @@ gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs'
 	browserSync.init({
 		server: {
 			baseDir: destPath
-		},
-		notify: false
+		}
 	});
 });
 
@@ -45,13 +44,13 @@ gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs'
 
 gulp.task('build-styles', function() {
 	return gulp.src(srcPath + '/assets/css/app.scss')
-						 .pipe(sass().on('error', onError))
-						 .pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
-						 .pipe(gulp.dest(destPath + '/assets/css'))
-						 .pipe(csso())
-						 .pipe(rename({ suffix: '.min', prefix: '' }))
-						 .pipe(gulp.dest(destPath + '/assets/css'))
-						 .pipe(browserSync.stream());
+		.pipe(sass().on('error', onError))
+		.pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
+		.pipe(gulp.dest(destPath + '/assets/css'))
+		.pipe(csso())
+		.pipe(rename({ suffix: '.min', prefix: '' }))
+		.pipe(gulp.dest(destPath + '/assets/css'))
+		.pipe(browserSync.stream());
 });
 
 /* ======================================== >>>>> */
@@ -60,11 +59,11 @@ gulp.task('build-styles', function() {
 
 gulp.task('build-scripts', function() {
 	return gulp.src(srcPath + '/assets/js/app.js')
-						 .pipe(gulp.dest(destPath + '/assets/js'))
-						 .pipe(rename({ suffix: '.min', prefix: '' }))
-						 .pipe(uglify())
-						 .on('error', onError)
-						 .pipe(gulp.dest(destPath + '/assets/js'));
+		.pipe(gulp.dest(destPath + '/assets/js'))
+		.pipe(rename({ suffix: '.min', prefix: '' }))
+		.pipe(uglify())
+		.on('error', onError)
+		.pipe(gulp.dest(destPath + '/assets/js'));
 });
 
 /* ======================================== >>>>> */
@@ -74,19 +73,19 @@ gulp.task('build-scripts', function() {
 gulp.task('copy-assets', function() {
 	// Copy fonts
 	gulp.src(srcPath + '/assets/font/**')
-			.pipe(gulp.dest(destPath + '/assets/font'));
+		.pipe(gulp.dest(destPath + '/assets/font'));
 	
 	// Copy and optimize images
 	gulp.src(srcPath + '/assets/img/**')
-			.pipe(gulp.dest(destPath + '/assets/img'));
+		.pipe(gulp.dest(destPath + '/assets/img'));
 	
 	// Copy php files
 	gulp.src(srcPath + '/assets/php/**')
-			.pipe(gulp.dest(destPath + '/assets/php'));
+		.pipe(gulp.dest(destPath + '/assets/php'));
 	
 	// Copy libs
 	gulp.src(srcPath + '/assets/libs/**')
-			.pipe(gulp.dest(destPath + '/assets/libs'));
+		.pipe(gulp.dest(destPath + '/assets/libs'));
 });
 
 /* ======================================== >>>>> */
@@ -95,8 +94,8 @@ gulp.task('copy-assets', function() {
 
 gulp.task('build-templates', function() {
 	return gulp.src(srcPath + '/templates/*.html')
-						 .pipe(fileInclude())
-						 .pipe(gulp.dest(destPath));
+		.pipe(fileInclude())
+		.pipe(gulp.dest(destPath));
 });
 
 /* ======================================== >>>>> */
@@ -105,11 +104,11 @@ gulp.task('build-templates', function() {
 
 gulp.task('build-scripts-libs', function() {
 	return gulp.src([srcPath + '/assets/js/libs.js'])
-						 .pipe(rename({ suffix: '.min', prefix: '' }))
-						 .pipe(fileInclude())
-						 .pipe(uglify())
-						 .on('error', onError)
-						 .pipe(gulp.dest(destPath + '/assets/js'));
+		.pipe(rename({ suffix: '.min', prefix: '' }))
+		.pipe(fileInclude())
+		.pipe(uglify())
+		.on('error', onError)
+		.pipe(gulp.dest(destPath + '/assets/js'));
 });
 
 /* ======================================== >>>>> */
@@ -130,8 +129,8 @@ gulp.task('watch', function() {
 
 gulp.task('zip-build', function() {
 	return gulp.src(['./**', '!' + destPath + '/**', '!./node_modules/**', '!./node_modules', '!' + destPath])
-						 .pipe(zip('src.zip'))
-						 .pipe(gulp.dest('./'));
+		.pipe(zip('src.zip'))
+		.pipe(gulp.dest('./'));
 });
 
 /* ======================================== >>>>> */
