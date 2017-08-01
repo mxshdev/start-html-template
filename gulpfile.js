@@ -33,7 +33,7 @@ var isBuild = !!argv.build;
 /* = Browser Sync Init = */
 /* ======================================== >>>>> */
 
-gulp.task('browser-sync', ['build-styles', 'build-styles:themes', 'build-scripts', 'build-scripts-libs', 'build-templates', 'copy-assets'], function() {
+gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs', 'build-templates', 'copy-assets'], function() {
 	browserSync.init({
 		server: {
 			baseDir: destPath,
@@ -47,25 +47,20 @@ gulp.task('browser-sync', ['build-styles', 'build-styles:themes', 'build-scripts
 /* ======================================== >>>>> */
 
 gulp.task('build-styles', function() {
+	if (isBuild) {
+		return gulp.src(srcPath + '/assets/css/app.scss')
+			.pipe(sass().on('error', onError))
+			.pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
+			.pipe(gulp.dest(destPath + '/assets/css'))
+			.pipe(csso())
+			.pipe(rename({ suffix: '.min', prefix: '' }))
+			.pipe(gulp.dest(destPath + '/assets/css'))
+			.pipe(browserSync.stream());
+	}
 	return gulp.src(srcPath + '/assets/css/app.scss')
 		.pipe(sourcemaps.init())
 		.pipe(sass().on('error', onError))
-		.pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
 		.pipe(gulp.dest(destPath + '/assets/css'))
-		.pipe(csso())
-		.pipe(rename({ suffix: '.min', prefix: '' }))
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(destPath + '/assets/css'))
-		.pipe(browserSync.stream());
-});
-
-gulp.task('build-styles:themes', function() {
-	return gulp.src(srcPath + '/assets/css/themes/themes.scss')
-		.pipe(sourcemaps.init())
-		.pipe(sass().on('error', onError))
-		.pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
-		.pipe(gulp.dest(destPath + '/assets/css'))
-		.pipe(csso())
 		.pipe(rename({ suffix: '.min', prefix: '' }))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(destPath + '/assets/css'))
@@ -77,9 +72,17 @@ gulp.task('build-styles:themes', function() {
 /* ======================================== >>>>> */
 
 gulp.task('build-scripts', function() {
+	if (isBuild) {
+		return gulp.src(srcPath + '/assets/js/app.js')
+			.pipe(fileInclude('//@@'))
+			.pipe(uglify())
+			.pipe(gulp.dest(destPath + '/assets/js'))
+			.pipe(rename({ suffix: '.min', prefix: '' }))
+			.on('error', onError)
+			.pipe(gulp.dest(destPath + '/assets/js'));
+	}
 	return gulp.src(srcPath + '/assets/js/app.js')
 		.pipe(fileInclude('//@@'))
-		.pipe(uglify())
 		.pipe(gulp.dest(destPath + '/assets/js'))
 		.pipe(rename({ suffix: '.min', prefix: '' }))
 		.on('error', onError)
@@ -128,10 +131,17 @@ gulp.task('build-templates', function() {
 /* ======================================== >>>>> */
 
 gulp.task('build-scripts-libs', function() {
+	if (isBuild) {
+		return gulp.src([srcPath + '/assets/js/libs.js'])
+			.pipe(rename({ suffix: '.min', prefix: '' }))
+			.pipe(fileInclude('//@@'))
+			.pipe(uglify())
+			.on('error', onError)
+			.pipe(gulp.dest(destPath + '/assets/js'));
+	}
 	return gulp.src([srcPath + '/assets/js/libs.js'])
 		.pipe(rename({ suffix: '.min', prefix: '' }))
 		.pipe(fileInclude('//@@'))
-		.pipe(uglify())
 		.on('error', onError)
 		.pipe(gulp.dest(destPath + '/assets/js'));
 });
@@ -159,11 +169,6 @@ gulp.task('zip-build', function() {
 		.pipe(gulp.dest('./'));
 });
 
-/* ======================================== >>>>> */
-/* = Error = */
-
-/* ======================================== >>>>> */
-
 function onError(err) {
 	console.log(err);
 	this.emit('end');
@@ -174,4 +179,4 @@ function onError(err) {
 /* ======================================== >>>>> */
 
 gulp.task('default', ['browser-sync', 'watch']);
-gulp.task('build', ['build-styles', 'build-styles:themes', 'build-scripts', 'build-scripts-libs', 'build-templates', 'copy-assets', 'zip-build']);
+gulp.task('build', ['build-styles', 'build-scripts', 'build-scripts-libs', 'build-templates', 'copy-assets', 'zip-build']);
