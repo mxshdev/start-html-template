@@ -1,31 +1,16 @@
-@import "variables";
-
 /* ======================================== >>>>> */
-/* = General helpers = */
+/* = Flexboxgrid Extended = */
 /* ======================================== >>>>> */
 
-/* ––––– General transition ––––– */
-
-@mixin general-transition() {
-	@media (min-width: $screen-md-min) {
-		transition: all .3s ease;
-	}
+.shrink {
+	flex: none;
 }
-
-/* ––––– Bootstrap container fixed width on small screen ––––– */
-
-//.container {
-//	@media (max-width: $screen-xs-max) {
-//		max-width: 320px;
-//		width: 100%;
-//	}
-//}
 
 /* ======================================== >>>>> */
 /* = Adaptive helpers = */
 /* ======================================== >>>>> */
 
-.hidden {
+.h-hidden {
 	display: none !important;
 	
 	// Super small devices
@@ -103,7 +88,7 @@
 	}
 }
 
-.visible {
+.h-visible {
 	// Super small devices
 	&-ss {
 		@media (max-width: $screen-ss-min - 1px) {

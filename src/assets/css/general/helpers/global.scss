@@ -1,0 +1,36 @@
+/* ======================================== >>>>> */
+/* = General helpers = */
+/* ======================================== >>>>> */
+
+/* ––––– General transition ––––– */
+
+@mixin general-transition() {
+	@media (min-width: $screen-md-min) {
+		transition: all .3s ease !important;
+	}
+}
+
+/* ––––– Bootstrap container fixed width on small screen ––––– */
+
+.container {
+	@media (max-width: $screen-xs-max) {
+		max-width: 320px;
+		width: 100%;
+	}
+}
+
+/* ––––– Fix for scroll ––––– */
+
+@mixin scrolled {
+	overflow-scrolling: touch;
+	transform: translateZ(0px);
+}
+
+@mixin hide-scroll {
+	-ms-overflow-style: none;
+	overflow: -moz-scrollbars-none;
+	
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}

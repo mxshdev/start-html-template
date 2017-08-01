@@ -2,120 +2,16 @@
 /* = Imports = */
 /* ======================================== >>>>> */
 /* ––––– External imports ––––– */
-/* ––––– General imports ––––– */
-@import 'helpers';
-@import 'variables';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
 /* ––––– Lib imports ––––– */
-@import '../../../bower_components/flexboxgrid/dist/flexboxgrid.min.css';
-
-/* ======================================== >>>>> */
-/* = General styles = */
-/* ======================================== >>>>> */
-
-* {
-	outline: none !important;
-}
-
-html {
-	overflow-x: hidden;
-	
-	&.is-overlay {
-		overflow: hidden;
-	}
-}
-
-body {
-	font-family: sans-serif;
-}
-
-a {
-	text-decoration: none;
-	
-	&:hover, &:focus, &:active {
-		text-decoration: none;
-	}
-}
-
-/* ======================================== >>>>> */
-/* = Header = */
-/* ======================================== >>>>> */
-
-.header {
-	
-}
-
-/* ======================================== >>>>> */
-/* = Main = */
-/* ======================================== >>>>> */
-
-.main {
-	
-}
-
-/* ======================================== >>>>> */
-/* = Footer = */
-/* ======================================== >>>>> */
-
-.footer {
-	
-}
-
-/* ======================================== >>>>> */
-/* = Sections = */
-/* ======================================== >>>>> */
-
-.section {
-	
-}
-
-/* ======================================== >>>>> */
-/* = UI Components = */
-/* ======================================== >>>>> */
-
-.ui {
-	
-	/* ––––– Button ––––– */
-	
-	&.button {
-		@include general-transition();
-	}
-	
-	/* ––––– Navigation ––––– */
-	
-	&.navigation {
-		.menu-item-has-children {
-			& > .sub-menu {
-				display: none;
-			}
-			
-			&.is-opened {
-				& > .sub-menu {
-					display: block;
-				}
-			}
-		}
-	}
-	
-	/* ––––– Tabs ––––– */
-	
-	&.tabs {
-		.navigation-tabs {
-			.navigation-tab {
-				&.is-active {
-					
-				}
-			}
-		}
-		
-		.content-tabs {
-			.content-tab {
-				display: none;
-				
-				&.is-active {
-					display: block;
-				}
-			}
-		}
-	}
-	
-}
+@import "../../../bower_components/normalize-css/normalize";
+@import '../../../bower_components/flexboxgrid/dist/flexboxgrid.min';
+@import "../../../bower_components/animatewithsass/animate.scss";
+/* ––––– General imports ––––– */
+@import "general/helpers/helpers";
+@import "general/global/global";
+@import "general/sections/sections";
+@import "general/ui/ui";
+@import "general/components/components";
+@import "general/pages/pages";

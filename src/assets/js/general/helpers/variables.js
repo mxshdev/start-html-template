@@ -1,0 +1,9 @@
+var $screen_ss_min = 480;
+var $screen_sm_min = 768;
+var $screen_md_min = 992;
+var $screen_lg_min = 1200;
+var $screen_xl_min = 1400;
+var $screen_xs_max = $screen_sm_min - 1;
+var $screen_sm_max = $screen_md_min - 1;
+var $screen_md_max = $screen_lg_min - 1;
+var $screen_lg_max = $screen_xl_min - 1;
