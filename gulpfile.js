@@ -37,7 +37,7 @@ gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs'
 	browserSync.init({
 		server: {
 			baseDir: destPath,
-			index: 'index.html'
+			index: 'pages/index.html'
 		}
 	});
 });
@@ -151,7 +151,7 @@ gulp.task('build-scripts-libs', function() {
 /* ======================================== >>>>> */
 
 gulp.task('watch', function() {
-	gulp.watch(srcPath + '/assets/css/**/*.scss', ['build-styles', 'build-styles:themes']);
+	gulp.watch(srcPath + '/assets/css/**/*.scss', ['build-styles']);
 	gulp.watch(srcPath + '/assets/js/**/*.js', ['build-scripts']);
 	gulp.watch(srcPath + '/assets/js/libs.js', ['build-scripts-libs']);
 	gulp.watch(srcPath + '/**/*.html', ['build-templates']);
