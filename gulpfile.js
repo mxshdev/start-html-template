@@ -27,7 +27,7 @@ if (argv.srcPath === 'this') {
 	destPath = '..';
 }
 
-var isBuild = !!argv.build;
+var isOptimize = !!argv.optimize;
 
 /* ======================================== >>>>> */
 /* = Browser Sync Init = */
@@ -47,7 +47,7 @@ gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs'
 /* ======================================== >>>>> */
 
 gulp.task('build-styles', function() {
-	if (isBuild) {
+	if (isOptimize) {
 		return gulp.src(srcPath + '/assets/css/app.scss')
 			.pipe(sass().on('error', onError))
 			.pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
@@ -72,7 +72,7 @@ gulp.task('build-styles', function() {
 /* ======================================== >>>>> */
 
 gulp.task('build-scripts', function() {
-	if (isBuild) {
+	if (isOptimize) {
 		return gulp.src(srcPath + '/assets/js/app.js')
 			.pipe(fileInclude('//@@'))
 			.pipe(uglify())
@@ -131,7 +131,7 @@ gulp.task('build-templates', function() {
 /* ======================================== >>>>> */
 
 gulp.task('build-scripts-libs', function() {
-	if (isBuild) {
+	if (isOptimize) {
 		return gulp.src([srcPath + '/assets/js/libs.js'])
 			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.pipe(fileInclude('//@@'))
