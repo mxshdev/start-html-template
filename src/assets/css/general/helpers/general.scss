@@ -10,15 +10,6 @@
 	}
 }
 
-/* ––––– Bootstrap container fixed width on small screen ––––– */
-
-.container {
-	@media (max-width: $screen-xs-max) {
-		max-width: 320px;
-		width: 100%;
-	}
-}
-
 /* ––––– Fix for scroll ––––– */
 
 @mixin scrolled {
