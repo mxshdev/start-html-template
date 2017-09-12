@@ -37,7 +37,7 @@ gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs'
 	browserSync.init({
 		server: {
 			baseDir: distPath,
-			index: 'pages/index.html'
+			index: 'index.html'
 		}
 	});
 });
@@ -120,10 +120,10 @@ gulp.task('copy-assets', function() {
 /* ======================================== >>>>> */
 
 gulp.task('build-templates', function() {
-	return gulp.src(srcPath + '/templates/pages/**/*.html')
+	return gulp.src(srcPath + '/templates/*.html')
 		.pipe(fileInclude('//@@'))
 		.on('error', onError)
-		.pipe(gulp.dest(distPath + '/pages'));
+		.pipe(gulp.dest(distPath));
 });
 
 /* ======================================== >>>>> */

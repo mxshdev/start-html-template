@@ -4,17 +4,120 @@
 /* ––––– External imports ––––– */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
-/* ––––– Lib imports ––––– */
+/* ––––– Libs imports ––––– */
 @import "../../../bower_components/bootstrap/scss/bootstrap-reboot";
 @import "../../../bower_components/bootstrap/scss/bootstrap-grid";
 @import "../../../bower_components/bootstrap/scss/utilities/display";
 @import "../../../bower_components/bootstrap/scss/utilities/sizing";
 @import "../../../bower_components/bootstrap/scss/utilities/spacing";
 @import "../../../bower_components/animatewithsass/animate.scss";
-/* ––––– General imports ––––– */
-@import "general/helpers/helpers";
-@import "general/global/global";
-@import "general/sections/sections";
-@import "general/ui/ui";
-@import "general/components/components";
-@import "general/pages/pages";
+
+/* ======================================== >>>>> */
+/* = Styles = */
+/* ======================================== >>>>> */
+
+* {
+	//outline: none !important;
+}
+
+html {
+	overflow-x: hidden;
+	
+	&.is-overlay {
+		overflow: hidden;
+	}
+}
+
+body {
+	font-family: sans-serif;
+}
+
+a {
+	text-decoration: none;
+	
+	&:hover, &:focus, &:active {
+		text-decoration: none;
+	}
+}
+
+/* ======================================== >>>>> */
+/* = Section = */
+/* ======================================== >>>>> */
+
+.section {
+
+}
+
+/* ======================================== >>>>> */
+/* = Page = */
+/* ======================================== >>>>> */
+
+.page {
+
+}
+
+/* ======================================== >>>>> */
+/* = Ui = */
+/* ======================================== >>>>> */
+
+.ui {
+	
+	/* ––––– Button ––––– */
+	
+	&.button {
+		
+		@include general-transition;
+		
+	}
+	
+	/* ––––– Navigation ––––– */
+	
+	&.navigation {
+		
+		.menu-item-has-children {
+			& > .sub-menu {
+				display: none;
+			}
+			
+			&.is-opened {
+				& > .sub-menu {
+					display: block;
+				}
+			}
+		}
+		
+	}
+	
+	/* ––––– Tabs ––––– */
+	
+	&.tabs {
+		
+		.navigation-tabs {
+			.navigation-tab {
+				&.is-active {
+				
+				}
+			}
+		}
+		
+		.content-tabs {
+			.content-tab {
+				display: none;
+				
+				&.is-active {
+					display: block;
+				}
+			}
+		}
+		
+	}
+	
+}
+
+/* ======================================== >>>>> */
+/* = Component = */
+/* ======================================== >>>>> */
+
+.component {
+
+}
