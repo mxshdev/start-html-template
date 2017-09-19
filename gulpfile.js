@@ -15,6 +15,7 @@ var gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	zip = require('gulp-zip'),
 	sourcemaps = require('gulp-sourcemaps'),
+	watch = require('gulp-watch'),
 	fs = require('fs');
 
 /* ––––– Build settings ––––– */
@@ -151,12 +152,21 @@ gulp.task('build-scripts-libs', function() {
 /* ======================================== >>>>> */
 
 gulp.task('watch', function() {
-	gulp.watch(srcPath + '/assets/css/**/*.scss', ['build-styles']);
-	gulp.watch(srcPath + '/assets/js/**/*.js', ['build-scripts']);
-	gulp.watch(srcPath + '/assets/js/libs.js', ['build-scripts-libs']);
-	gulp.watch(srcPath + '/**/*.html', ['build-templates']);
-	gulp.watch(srcPath + '/assets/js/**/*.js').on('change', browserSync.reload);
-	gulp.watch(distPath + '/**/*.html').on('change', browserSync.reload);
+	watch([srcPath + '/**/*.scss', srcPath + '/**/*.css'], function(e) {
+		gulp.start('build-styles');
+	});
+	watch([srcPath + '/assets/js/**/*.js'], function(e) {
+		gulp.start('build-scripts');
+	});
+	watch([srcPath + '/assets/libs/**/*.js', srcPath + '/assets/js/libs.js'], function(e) {
+		gulp.start('build-scripts-libs');
+	});
+	watch(srcPath + '/**/*.html', function(e) {
+		gulp.start('build-templates');
+	});
+	watch([distPath + '/**/*.js', distPath + '/**/*.html'], function(e) {
+		browserSync.reload();
+	});
 });
 
 /* ======================================== >>>>> */
