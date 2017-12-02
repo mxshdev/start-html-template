@@ -1,10 +1,10 @@
 @import "variables";
 
-/* ======================================== >>>>> */
-/* = General helpers = */
-/* ======================================== >>>>> */
+/**
+ * Section: General Helpers
+ */
 
-/* ––––– General transition ––––– */
+// Mixin: General transition
 
 @mixin general-transition() {
 	@media (min-width: $screen-md-min) {
@@ -12,12 +12,14 @@
 	}
 }
 
-/* ––––– Fix for scroll ––––– */
+// Mixin: Fix for scroll
 
 @mixin scrolled {
 	overflow-scrolling: touch;
 	transform: translateZ(0px);
 }
+
+// Mixin: Hide Scroll
 
 @mixin hide-scroll {
 	-ms-overflow-style: none;

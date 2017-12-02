@@ -1,23 +1,23 @@
 {
-  "name": "app",
-  "main": "gulpfile.js",
-  "author": "Shmasya",
-  "license": "ISC",
-  "devDependencies": {
-    "browser-sync": "^2.18.12",
-    "fs": "0.0.1-security",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-csso": "^3.0.0",
-    "gulp-file-include": "^1.1.0",
-    "gulp-insert": "^0.5.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.6.0",
-    "gulp-uglify": "^3.0.0",
-    "gulp-watch": "^4.3.11",
-    "gulp-zip": "^4.0.0",
-    "yargs": "^8.0.2"
-  }
+	"name": "app",
+	"main": "gulpfile.js",
+	"author": "Shmasya",
+	"license": "ISC",
+	"devDependencies": {
+		"browser-sync": "^2.18.12",
+		"fs": "0.0.1-security",
+		"gulp": "^3.9.1",
+		"gulp-autoprefixer": "^4.0.0",
+		"gulp-concat": "^2.6.1",
+		"gulp-csso": "^3.0.0",
+		"gulp-file-include": "^1.1.0",
+		"gulp-insert": "^0.5.0",
+		"gulp-rename": "^1.2.2",
+		"gulp-sass": "^3.1.0",
+		"gulp-sourcemaps": "^2.6.0",
+		"gulp-uglify": "^3.0.0",
+		"gulp-watch": "^4.3.11",
+		"gulp-zip": "^4.0.0",
+		"yargs": "^10.0.3"
+	}
 }

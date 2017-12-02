@@ -1,6 +1,6 @@
-/* ======================================== >>>>> */
-/* = General variables = */
-/* ======================================== >>>>> */
+/**
+ * General variables
+ */
 
 var gulp = require('gulp'),
 	csso = require('gulp-csso'),
@@ -18,7 +18,7 @@ var gulp = require('gulp'),
 	watch = require('gulp-watch'),
 	fs = require('fs');
 
-/* ––––– Build settings ––––– */
+// Build settings
 
 var srcPath = './src';
 var distPath = './dist';
@@ -30,9 +30,9 @@ if (argv.srcPath === 'this') {
 
 var isDisableOptimize = !!argv.disableOptimize;
 
-/* ======================================== >>>>> */
-/* = Browser Sync Init = */
-/* ======================================== >>>>> */
+/**
+ * Browser Sync Init
+ */
 
 gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs', 'build-templates', 'copy-assets'], function() {
 	browserSync.init({
@@ -43,9 +43,9 @@ gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs'
 	});
 });
 
-/* ======================================== >>>>> */
-/* = Build styles = */
-/* ======================================== >>>>> */
+/**
+ * Build styles
+ */
 
 gulp.task('build-styles', function() {
 	if (isDisableOptimize) {
@@ -68,9 +68,9 @@ gulp.task('build-styles', function() {
 		.pipe(browserSync.stream());
 });
 
-/* ======================================== >>>>> */
-/* = Build scripts = */
-/* ======================================== >>>>> */
+/**
+ * Build scripts
+ */
 
 gulp.task('build-scripts', function() {
 	if (isDisableOptimize) {
@@ -90,9 +90,9 @@ gulp.task('build-scripts', function() {
 		.pipe(gulp.dest(distPath + '/assets/js'));
 });
 
-/* ======================================== >>>>> */
-/* = Copy assets = */
-/* ======================================== >>>>> */
+/**
+ * Copy assets
+ */
 
 gulp.task('copy-assets', function() {
 	// Copy fonts
@@ -116,9 +116,9 @@ gulp.task('copy-assets', function() {
 		.pipe(gulp.dest(distPath + '/templates'));
 });
 
-/* ======================================== >>>>> */
-/* = Build templates = */
-/* ======================================== >>>>> */
+/**
+ * Build templates
+ */
 
 gulp.task('build-templates', function() {
 	return gulp.src(srcPath + '/templates/*.html')
@@ -127,9 +127,9 @@ gulp.task('build-templates', function() {
 		.pipe(gulp.dest(distPath));
 });
 
-/* ======================================== >>>>> */
-/* = Build libs scripts = */
-/* ======================================== >>>>> */
+/**
+ * Build libs scripts
+ */
 
 gulp.task('build-scripts-libs', function() {
 	if (isDisableOptimize) {
@@ -147,9 +147,9 @@ gulp.task('build-scripts-libs', function() {
 		.pipe(gulp.dest(distPath + '/assets/js'));
 });
 
-/* ======================================== >>>>> */
-/* = General watcher = */
-/* ======================================== >>>>> */
+/**
+ * General watcher
+ */
 
 gulp.task('watch', function() {
 	watch([srcPath + '/**/*.scss', srcPath + '/**/*.css'], function(e) {
@@ -169,9 +169,9 @@ gulp.task('watch', function() {
 	});
 });
 
-/* ======================================== >>>>> */
-/* = Create build archive = */
-/* ======================================== >>>>> */
+/**
+ * Create build archive
+ */
 
 gulp.task('zip-build', function() {
 	return gulp.src(['./**', '!' + distPath + '/**', '!./node_modules/**', '!./node_modules', '!' + distPath])
@@ -179,16 +179,16 @@ gulp.task('zip-build', function() {
 		.pipe(gulp.dest('./'));
 });
 
-/* ––––– Error handler ––––– */
+// Error handler
 
 function onError(err) {
 	console.log(err);
 	this.emit('end');
 }
 
-/* ======================================== >>>>> */
-/* = Gulp Start = */
-/* ======================================== >>>>> */
+/**
+ * Gulp Start
+ */
 
 gulp.task('default', ['browser-sync', 'watch']);
 gulp.task('build', ['build-styles', 'build-scripts', 'build-scripts-libs', 'build-templates', 'copy-assets', 'zip-build']);

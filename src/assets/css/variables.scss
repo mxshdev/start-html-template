@@ -1,6 +1,6 @@
-/* ======================================== >>>>> */
-/* = Media queries = */
-/* ======================================== >>>>> */
+/**
+ * Breackpoints
+ */
 
 $screen-ss-min: 480px;
 $screen-sm-min: 768px;
@@ -11,3 +11,9 @@ $screen-xs-max: $screen-sm-min - 1px;
 $screen-sm-max: $screen-md-min - 1px;
 $screen-md-max: $screen-lg-min - 1px;
 $screen-lg-max: $screen-xl-min - 1px;
+
+/**
+ * Colors
+ */
+
+$color-primary: #FFFFFF;
