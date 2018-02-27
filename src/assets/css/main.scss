@@ -1,28 +1,22 @@
 /**
  * Section: Imports
  */
-
 // External Imports
-
-// @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-// @import url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
-
+ @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+ @import url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
 // Libs Imports
-
-// @import "../../../bower_components/bootstrap/scss/bootstrap-reboot";
-// @import "../../../bower_components/bootstrap/scss/bootstrap-grid";
-// @import "../../../bower_components/bootstrap/scss/utilities/display";
-// @import "../../../bower_components/bootstrap/scss/utilities/sizing";
-// @import "../../../bower_components/bootstrap/scss/utilities/spacing";
+@import "../../../bower_components/bootstrap/scss/bootstrap-reboot";
+@import "../../../bower_components/bootstrap/scss/bootstrap-grid";
+@import "../../../bower_components/bootstrap/scss/utilities";
 // @import "../../../bower_components/animatewithsass/animate.scss";
-// @import "helpers";
+@import "helpers";
 
 /**
  * Section: Styles
  */
 
 * {
-	// outline: none !important;
+	 outline: none !important;
 }
 
 html {

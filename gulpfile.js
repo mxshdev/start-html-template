@@ -34,7 +34,7 @@ var isDisableOptimize = !!argv.disableOptimize;
  * Browser Sync Init
  */
 
-gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs', 'build-templates', 'copy-assets'], function() {
+gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets'], function() {
 	browserSync.init({
 		server: {
 			baseDir: distPath,
@@ -49,7 +49,7 @@ gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-libs'
 
 gulp.task('build-styles', function() {
 	if (isDisableOptimize) {
-		return gulp.src(srcPath + '/assets/css/app.scss')
+		return gulp.src(srcPath + '/assets/css/main.scss')
 			.pipe(sourcemaps.init())
 			.pipe(sass().on('error', onError))
 			.pipe(gulp.dest(distPath + '/assets/css'))
@@ -58,7 +58,7 @@ gulp.task('build-styles', function() {
 			.pipe(gulp.dest(distPath + '/assets/css'))
 			.pipe(browserSync.stream());
 	}
-	return gulp.src(srcPath + '/assets/css/app.scss')
+	return gulp.src(srcPath + '/assets/css/main.scss')
 		.pipe(sass().on('error', onError))
 		.pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
 		.pipe(gulp.dest(distPath + '/assets/css'))
@@ -74,14 +74,14 @@ gulp.task('build-styles', function() {
 
 gulp.task('build-scripts', function() {
 	if (isDisableOptimize) {
-		return gulp.src(srcPath + '/assets/js/app.js')
+		return gulp.src(srcPath + '/assets/js/main.js')
 			.pipe(fileInclude('//@@'))
 			.pipe(gulp.dest(distPath + '/assets/js'))
 			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.on('error', onError)
 			.pipe(gulp.dest(distPath + '/assets/js'));
 	}
-	return gulp.src(srcPath + '/assets/js/app.js')
+	return gulp.src(srcPath + '/assets/js/main.js')
 		.pipe(fileInclude('//@@'))
 		.pipe(uglify())
 		.pipe(gulp.dest(distPath + '/assets/js'))
@@ -107,9 +107,9 @@ gulp.task('copy-assets', function() {
 	gulp.src(srcPath + '/assets/php/**')
 		.pipe(gulp.dest(distPath + '/assets/php'));
 	
-	// Copy libs
-	gulp.src(srcPath + '/assets/libs/**')
-		.pipe(gulp.dest(distPath + '/assets/libs'));
+	// Copy vendor
+	gulp.src(srcPath + '/assets/vendor/**')
+		.pipe(gulp.dest(distPath + '/assets/vendor'));
 	
 	// Copy templates
 	gulp.src(srcPath + '/templates/**')
@@ -128,18 +128,18 @@ gulp.task('build-templates', function() {
 });
 
 /**
- * Build libs scripts
+ * Build vendor scripts
  */
 
-gulp.task('build-scripts-libs', function() {
+gulp.task('build-scripts-vendor', function() {
 	if (isDisableOptimize) {
-		return gulp.src([srcPath + '/assets/js/libs.js'])
+		return gulp.src([srcPath + '/assets/js/vendor.js'])
 			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.pipe(fileInclude('//@@'))
 			.on('error', onError)
 			.pipe(gulp.dest(distPath + '/assets/js'));
 	}
-	return gulp.src([srcPath + '/assets/js/libs.js'])
+	return gulp.src([srcPath + '/assets/js/vendor.js'])
 		.pipe(rename({ suffix: '.min', prefix: '' }))
 		.pipe(fileInclude('//@@'))
 		.pipe(uglify())
@@ -158,8 +158,8 @@ gulp.task('watch', function() {
 	watch([srcPath + '/assets/js/**/*.js'], function(e) {
 		gulp.start('build-scripts');
 	});
-	watch([srcPath + '/assets/libs/**/*.js', srcPath + '/assets/js/libs.js'], function(e) {
-		gulp.start('build-scripts-libs');
+	watch([srcPath + '/assets/vendor/**/*.js', srcPath + '/assets/js/vendor.js'], function(e) {
+		gulp.start('build-scripts-vendor');
 	});
 	watch(srcPath + '/**/*.html', function(e) {
 		gulp.start('build-templates');
@@ -191,4 +191,4 @@ function onError(err) {
  */
 
 gulp.task('default', ['browser-sync', 'watch']);
-gulp.task('build', ['build-styles', 'build-scripts', 'build-scripts-libs', 'build-templates', 'copy-assets', 'zip-build']);
+gulp.task('build', ['build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets', 'zip-build']);
