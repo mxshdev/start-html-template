@@ -60,7 +60,7 @@ gulp.task('build-styles', function() {
 	}
 	return gulp.src(srcPath + '/assets/css/main.scss')
 		.pipe(sass().on('error', onError))
-		.pipe(autoprefixer({ browsers: ['last 15 versions'], cascade: false }))
+		.pipe(autoprefixer({ browsers: ['last 100 versions'], cascade: false }))
 		.pipe(gulp.dest(distPath + '/assets/css'))
 		.pipe(csso())
 		.pipe(rename({ suffix: '.min', prefix: '' }))
@@ -179,6 +179,13 @@ gulp.task('zip-build', function() {
 		.pipe(gulp.dest('./'));
 });
 
+/**
+ * Clean dist
+ */
+gulp.task('clean-dist', function() {
+	return del.sync(distPath + '/**', { force: true });
+});
+
 // Error handler
 
 function onError(err) {
@@ -190,5 +197,5 @@ function onError(err) {
  * Gulp Start
  */
 
-gulp.task('default', ['browser-sync', 'watch']);
-gulp.task('build', ['build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets', 'zip-build']);
+gulp.task('default', ['clean-dist', 'browser-sync', 'watch']);
+gulp.task('build', ['clean-dist', 'build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets', 'zip-build']);
