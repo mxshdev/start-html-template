@@ -165,7 +165,10 @@ gulp.task('watch', function() {
 	watch(srcPath + '/**/*.html', function(e) {
 		gulp.start('build-templates');
 	});
-	watch([distPath + '/**/*.js', distPath + '/**/*.html'], function(e) {
+	watch([srcPath + '/*.js', srcPath + '/**/*.js'], function(e) {
+		browserSync.reload();
+	});
+	watch([srcPath + '/*.html', srcPath + '/**/*.html'], function(e) {
 		browserSync.reload();
 	});
 });
