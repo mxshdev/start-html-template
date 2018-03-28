@@ -16,6 +16,7 @@ var gulp = require('gulp'),
 	zip = require('gulp-zip'),
 	sourcemaps = require('gulp-sourcemaps'),
 	watch = require('gulp-watch'),
+	del = require('del'),
 	fs = require('fs');
 
 // Build settings
