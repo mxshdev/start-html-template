@@ -7,7 +7,7 @@
 // Mixin: General transition
 
 @mixin general-transition() {
-	@media (min-width: $screen-md-min) {
+	@include media-breakpoint-up(md) {
 		transition: all .3s ease !important;
 	}
 }
