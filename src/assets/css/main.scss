@@ -2,120 +2,12 @@
  * Section: Imports
  */
 // External Imports
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
 // Libs Imports
 @import "../../../bower_components/bootstrap/scss/bootstrap-reboot";
 @import "../../../bower_components/bootstrap/scss/bootstrap-grid";
-@import "../../../bower_components/bootstrap/scss/utilities";
-@import "helpers";
-
-/**
- * Section: Styles
- */
-
-* {
-	outline: none !important;
-}
-
-html {
-	overflow-x: hidden;
-	
-	&.is-overlay {
-		overflow: hidden;
-	}
-}
-
-body {
-	// font-family: sans-serif;
-}
-
-a {
-	text-decoration: none;
-	
-	&:hover, &:focus, &:active {
-		text-decoration: none;
-	}
-}
-
-/**
- * Section: Section
- */
-
-.section {
-
-}
-
-/**
- * Section: Page
- */
-
-.page {
-
-}
-
-/**
- * Section: Ui
- */
-
-.ui {
-	
-	// Button
-	
-	&.button {
-		
-		@include general-transition;
-		
-	}
-	
-	// Navigation
-	
-	&.navigation {
-		
-		.menu-item-has-children {
-			& > .sub-menu {
-				display: none;
-			}
-			
-			&.is-opened {
-				& > .sub-menu {
-					display: block;
-				}
-			}
-		}
-		
-	}
-	
-	// Tabs
-	
-	&.tabs {
-		
-		.navigation-tabs {
-			.navigation-tab {
-				&.is-active {
-				
-				}
-			}
-		}
-		
-		.content-tabs {
-			.content-tab {
-				display: none;
-				
-				&.is-active {
-					display: block;
-				}
-			}
-		}
-		
-	}
-	
-}
-
-/**
- * Section: Component
- */
-
-.component {
-
-}
+// General Imports
+@import "general/global/global";
+@import "general/ui/ui";
+@import "general/components/components";
+@import "general/sections/sections";
+@import "general/pages/pages";

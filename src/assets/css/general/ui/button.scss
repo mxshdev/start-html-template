@@ -1,0 +1,7 @@
+&.button {
+	user-select: none;
+	cursor: pointer;
+	background: none;
+	border: none;
+	@include general-transition;
+}

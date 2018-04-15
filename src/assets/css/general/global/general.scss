@@ -1,0 +1,24 @@
+* {
+	outline: none !important;
+}
+
+html {
+	overflow-x: hidden;
+	
+	&.is-overlay {
+		overflow: hidden;
+	}
+}
+
+body {
+	font-family: sans-serif;
+}
+
+a {
+	text-decoration: none;
+	@include general-transition;
+	
+	&:hover, &:focus, &:active {
+		text-decoration: none;
+	}
+}

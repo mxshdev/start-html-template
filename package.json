@@ -6,7 +6,7 @@
 	"scripts": {
 		"init": "npm i && bower i",
 		"build": "gulp build",
-		"serve": "gulp"
+		"serve": "gulp --disable-optimize"
 	},
 	"devDependencies": {
 		"browser-sync": "^2.18.12",

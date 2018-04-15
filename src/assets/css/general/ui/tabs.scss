@@ -1,0 +1,19 @@
+&.tabs {
+	.navigation-tabs {
+		.navigation-tab {
+			&.is-active {
+			
+			}
+		}
+	}
+	
+	.content-tabs {
+		.content-tab {
+			display: none;
+			
+			&.is-active {
+				display: block;
+			}
+		}
+	}
+}

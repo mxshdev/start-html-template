@@ -51,6 +51,7 @@ gulp.task('build-styles', function() {
 		return gulp.src(srcPath + '/assets/css/main.scss')
 			.pipe(sourcemaps.init())
 			.pipe(sass().on('error', onError))
+			.pipe(autoprefixer({ browsers: ['last 100 versions'], cascade: false }))
 			.pipe(gulp.dest(distPath + '/assets/css'))
 			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.pipe(sourcemaps.write())
@@ -61,7 +62,9 @@ gulp.task('build-styles', function() {
 		.pipe(sass().on('error', onError))
 		.pipe(autoprefixer({ browsers: ['last 100 versions'], cascade: false }))
 		.pipe(gulp.dest(distPath + '/assets/css'))
-		.pipe(csso())
+		.pipe(csso({
+			comments: false
+		}))
 		.pipe(rename({ suffix: '.min', prefix: '' }))
 		.pipe(gulp.dest(distPath + '/assets/css'))
 		.pipe(browserSync.stream());
