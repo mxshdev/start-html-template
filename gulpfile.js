@@ -7,17 +7,15 @@ var gulp = require('gulp'),
 	rename = require('gulp-rename'),
 	browserSync = require('browser-sync'),
 	uglify = require('gulp-uglify'),
-	concat = require('gulp-concat'),
 	autoprefixer = require('gulp-autoprefixer'),
-	insert = require('gulp-insert'),
 	fileInclude = require('gulp-file-include'),
 	argv = require('yargs').argv,
 	sass = require('gulp-sass'),
 	zip = require('gulp-zip'),
 	sourcemaps = require('gulp-sourcemaps'),
 	watch = require('gulp-watch'),
-	del = require('del'),
-	fs = require('fs');
+	runSequence = require('run-sequence'),
+	del = require('del');
 
 // Build settings
 
@@ -149,27 +147,29 @@ gulp.task('build-scripts-vendor', function() {
 });
 
 /**
+ * Reload browser
+ */
+
+gulp.task('browser-reload', function() {
+	return browserSync.reload();
+});
+
+/**
  * General watcher
  */
 
 gulp.task('watch', function() {
 	watch([srcPath + '/**/*.scss', srcPath + '/**/*.css'], function(e) {
-		gulp.start('build-styles');
+		runSequence('build-styles');
 	});
 	watch([srcPath + '/assets/js/**/*.js'], function(e) {
-		gulp.start('build-scripts');
+		runSequence('build-scripts', 'browser-reload');
 	});
 	watch([srcPath + '/assets/vendor/**/*.js', srcPath + '/assets/js/vendor.js'], function(e) {
-		gulp.start('build-scripts-vendor');
+		runSequence('build-scripts-vendor', 'browser-reload');
 	});
 	watch(srcPath + '/**/*.html', function(e) {
-		gulp.start('build-templates');
-	});
-	watch([srcPath + '/*.js', srcPath + '/**/*.js'], function(e) {
-		browserSync.reload();
-	});
-	watch([srcPath + '/*.html', srcPath + '/**/*.html'], function(e) {
-		browserSync.reload();
+		runSequence('build-templates', 'browser-reload');
 	});
 });
 
