@@ -20,6 +20,7 @@ var gulp = require('gulp'),
 // Build settings
 
 var srcPath = './src';
+var devPath = './dev';
 var distPath = './dist';
 
 if (argv.srcPath === 'this') {
@@ -36,7 +37,7 @@ var isDisableOptimize = !!argv.disableOptimize;
 gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets'], function() {
 	browserSync.init({
 		server: {
-			baseDir: distPath,
+			baseDir: devPath,
 			index: 'index.html'
 		}
 	});
@@ -52,10 +53,10 @@ gulp.task('build-styles', function() {
 			.pipe(sourcemaps.init())
 			.pipe(sass().on('error', onError))
 			.pipe(autoprefixer({ browsers: ['last 100 versions'], cascade: false }))
-			.pipe(gulp.dest(distPath + '/assets/css'))
+			.pipe(gulp.dest(devPath + '/assets/css'))
 			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.pipe(sourcemaps.write())
-			.pipe(gulp.dest(distPath + '/assets/css'))
+			.pipe(gulp.dest(devPath + '/assets/css'))
 			.pipe(browserSync.stream());
 	}
 	return gulp.src(srcPath + '/assets/css/main.scss')
@@ -78,10 +79,10 @@ gulp.task('build-scripts', function() {
 	if (isDisableOptimize) {
 		return gulp.src(srcPath + '/assets/js/main.js')
 			.pipe(fileInclude('//@@'))
-			.pipe(gulp.dest(distPath + '/assets/js'))
+			.pipe(gulp.dest(devPath + '/assets/js'))
 			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.on('error', onError)
-			.pipe(gulp.dest(distPath + '/assets/js'));
+			.pipe(gulp.dest(devPath + '/assets/js'));
 	}
 	return gulp.src(srcPath + '/assets/js/main.js')
 		.pipe(fileInclude('//@@'))
@@ -99,22 +100,27 @@ gulp.task('build-scripts', function() {
 gulp.task('copy-assets', function() {
 	// Copy fonts
 	gulp.src(srcPath + '/assets/font/**')
+		.pipe(gulp.dest(devPath + '/assets/font'))
 		.pipe(gulp.dest(distPath + '/assets/font'));
 	
 	// Copy and optimize images
 	gulp.src(srcPath + '/assets/img/**')
+		.pipe(gulp.dest(devPath + '/assets/img'))
 		.pipe(gulp.dest(distPath + '/assets/img'));
 	
 	// Copy php files
 	gulp.src(srcPath + '/assets/php/**')
+		.pipe(gulp.dest(devPath + '/assets/php'))
 		.pipe(gulp.dest(distPath + '/assets/php'));
 	
 	// Copy vendor
 	gulp.src(srcPath + '/assets/vendor/**')
+		.pipe(gulp.dest(devPath + '/assets/vendor'))
 		.pipe(gulp.dest(distPath + '/assets/vendor'));
 	
 	// Copy templates
 	gulp.src(srcPath + '/templates/**')
+		.pipe(gulp.dest(devPath + '/templates'))
 		.pipe(gulp.dest(distPath + '/templates'));
 });
 
@@ -126,6 +132,7 @@ gulp.task('build-templates', function() {
 	return gulp.src(srcPath + '/templates/*.html')
 		.pipe(fileInclude('//@@'))
 		.on('error', onError)
+		.pipe(gulp.dest(devPath))
 		.pipe(gulp.dest(distPath));
 });
 
@@ -139,7 +146,7 @@ gulp.task('build-scripts-vendor', function() {
 			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.pipe(fileInclude('//@@'))
 			.on('error', onError)
-			.pipe(gulp.dest(distPath + '/assets/js'));
+			.pipe(gulp.dest(devPath + '/assets/js'));
 	}
 	return gulp.src([srcPath + '/assets/js/vendor.js'])
 		.pipe(rename({ suffix: '.min', prefix: '' }))
@@ -190,7 +197,14 @@ gulp.task('zip-build', function() {
  * Clean dist
  */
 gulp.task('clean-dist', function() {
-	return del.sync(distPath + '/**', { force: true });
+	del.sync(distPath + '/**', { force: true });
+});
+
+/**
+ * Clean dev
+ */
+gulp.task('clean-dev', function() {
+	del.sync(devPath + '/**', { force: true });
 });
 
 // Error handler
@@ -204,5 +218,5 @@ function onError(err) {
  * Gulp Start
  */
 
-gulp.task('default', ['clean-dist', 'browser-sync', 'watch']);
-gulp.task('build', ['clean-dist', 'build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets', 'zip-build']);
+gulp.task('default', ['clean-dev', 'browser-sync', 'watch']);
+gulp.task('build', ['clean-dist', 'build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets']);
