@@ -26,6 +26,7 @@ var distPath = './dist';
 if (argv.srcPath === 'this') {
 	srcPath = '..';
 	distPath = '..';
+	devPath = '..';
 }
 
 var isDisableOptimize = !!argv.disableOptimize;
@@ -80,16 +81,16 @@ gulp.task('build-scripts', function() {
 		return gulp.src(srcPath + '/assets/js/main.js')
 			.pipe(fileInclude('//@@'))
 			.pipe(gulp.dest(devPath + '/assets/js'))
-			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.on('error', onError)
+			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.pipe(gulp.dest(devPath + '/assets/js'));
 	}
 	return gulp.src(srcPath + '/assets/js/main.js')
 		.pipe(fileInclude('//@@'))
-		.pipe(uglify())
 		.pipe(gulp.dest(distPath + '/assets/js'))
-		.pipe(rename({ suffix: '.min', prefix: '' }))
+		.pipe(uglify())
 		.on('error', onError)
+		.pipe(rename({ suffix: '.min', prefix: '' }))
 		.pipe(gulp.dest(distPath + '/assets/js'));
 });
 
@@ -143,16 +144,18 @@ gulp.task('build-templates', function() {
 gulp.task('build-scripts-vendor', function() {
 	if (isDisableOptimize) {
 		return gulp.src([srcPath + '/assets/js/vendor.js'])
-			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.pipe(fileInclude('//@@'))
+			.pipe(gulp.dest(devPath + '/assets/js'))
 			.on('error', onError)
+			.pipe(rename({ suffix: '.min', prefix: '' }))
 			.pipe(gulp.dest(devPath + '/assets/js'));
 	}
 	return gulp.src([srcPath + '/assets/js/vendor.js'])
-		.pipe(rename({ suffix: '.min', prefix: '' }))
 		.pipe(fileInclude('//@@'))
+		.pipe(gulp.dest(devPath + '/assets/js'))
 		.pipe(uglify())
 		.on('error', onError)
+		.pipe(rename({ suffix: '.min', prefix: '' }))
 		.pipe(gulp.dest(distPath + '/assets/js'));
 });
 
