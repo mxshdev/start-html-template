@@ -1,1 +1,1 @@
-//@@include('../../../bower_components/jquery/dist/jquery.min.js')
+//@@include('../../../node_modules/jquery/dist/jquery.min.js')
