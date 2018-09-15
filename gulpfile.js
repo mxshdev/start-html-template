@@ -184,6 +184,7 @@ gulp.task('watch', function() {
 	watch(srcPath + '/**/*.html', function(e) {
 		runSequence('build-templates', 'browser-reload');
 	});
+	
 });
 
 /**

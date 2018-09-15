@@ -3,5 +3,8 @@
 	cursor: pointer;
 	background: none;
 	border: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	@include general-transition;
 }
