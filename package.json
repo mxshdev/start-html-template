@@ -4,7 +4,7 @@
 	"author": "Shmasya",
 	"license": "ISC",
 	"scripts": {
-		"init": "npm i && npm i bower -g && npm i gulp -g",
+		"init": "npm i && npm i gulp -g",
 		"build": "gulp build",
 		"serve": "gulp --disable-optimize"
 	},
