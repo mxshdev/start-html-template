@@ -13,7 +13,7 @@ html {
 }
 
 body {
-	font-family: sans-serif;
+	font-family: $font-family-base;
 	-webkit-text-size-adjust: 100%;
 	font-variant-ligatures: none;
 	-webkit-font-variant-ligatures: none;
@@ -31,4 +31,8 @@ a {
 	&:hover, &:focus, &:active {
 		text-decoration: none;
 	}
+}
+
+input, textarea, select {
+	width: 100%;
 }

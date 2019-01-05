@@ -4,17 +4,22 @@
 
 // Mixin: General transition
 
-@mixin general-transition() {
-	@include media-breakpoint-up(md) {
-		transition: all .3s ease !important;
-	}
-}
-
-// Mixin: Fix for scroll
-
 @mixin scrolled {
 	overflow-scrolling: touch;
+	-webkit-overflow-scrolling: touch;
 	transform: translateZ(0px);
+}
+
+@mixin general-transition($properties...) {
+	@if length($properties) == 0 {
+		$properties: all;
+	}
+	
+	@include media-breakpoint-up(md) {
+		transition-property: $properties;
+		transition-duration: $value-animation-duration;
+		transition-timing-function: $value-animation-function;
+	}
 }
 
 // Mixin: Hide Scroll
@@ -26,4 +31,28 @@
 	&::-webkit-scrollbar {
 		display: none;
 	}
+}
+
+// Margin Helpers
+
+.mb-d {
+	margin-bottom: $value-default-padding !important;
+}
+
+.-mb-d {
+	margin-bottom: -$value-default-padding !important;
+}
+
+.mr-d {
+	margin-right: $value-default-padding !important;
+}
+
+.-mr-d {
+	margin-right: -$value-default-padding !important;
+}
+
+// Action Helpers
+
+.is-disabled {
+	pointer-events: none !important;
 }

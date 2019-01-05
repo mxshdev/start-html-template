@@ -1,4 +1,10 @@
 /**
+ * Bootstrap Config
+ */
+
+
+
+/**
  * Colors
  */
 
@@ -9,3 +15,8 @@ $color-primary: #FFFFFF;
  */
 
 $value-default-padding: 15px;
+$value-animation-duration: .15s;
+$value-animation-function: ease;
+$value-transition: $value-animation-duration $value-animation-function;
+$value-border-radius: 0px;
+$font-family-base: sans-serif;

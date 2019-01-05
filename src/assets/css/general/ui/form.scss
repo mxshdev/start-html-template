@@ -1,5 +1,9 @@
+&.form-section {
+	margin-bottom: $value-default-padding;
+}
+
 &.form-field {
-	label, .label {
+	label {
 		cursor: pointer;
 		user-select: none;
 	}
