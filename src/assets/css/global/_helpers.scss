@@ -1,14 +1,12 @@
-/**
- * Section: General Helpers
- */
-
-// Mixin: General transition
+// Mixin: lifehack for scroll
 
 @mixin scrolled {
 	overflow-scrolling: touch;
 	-webkit-overflow-scrolling: touch;
 	transform: translateZ(0px);
 }
+
+// Mixin: General transition
 
 @mixin general-transition($properties...) {
 	@if length($properties) == 0 {
@@ -17,8 +15,8 @@
 	
 	@include media-breakpoint-up(md) {
 		transition-property: $properties;
-		transition-duration: $value-animation-duration;
-		transition-timing-function: $value-animation-function;
+		transition-duration: $g-value-animation-duration;
+		transition-timing-function: $g-value-animation-function;
 	}
 }
 
@@ -31,24 +29,6 @@
 	&::-webkit-scrollbar {
 		display: none;
 	}
-}
-
-// Margin Helpers
-
-.mb-d {
-	margin-bottom: $value-default-padding !important;
-}
-
-.-mb-d {
-	margin-bottom: -$value-default-padding !important;
-}
-
-.mr-d {
-	margin-right: $value-default-padding !important;
-}
-
-.-mr-d {
-	margin-right: -$value-default-padding !important;
 }
 
 // Action Helpers

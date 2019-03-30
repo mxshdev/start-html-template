@@ -1,5 +1,6 @@
 # start-html
-Start HTML Template.
+Start HTML Template.<br>
+Guidelines: https://github.com/chris-pearce/css-guidelines
 # How start
 1. git clone https://github.com/Shmasya/start-html-template/
 2. cd start-html-template

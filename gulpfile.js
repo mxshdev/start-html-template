@@ -53,10 +53,10 @@ gulp.task('build-styles', function() {
 		return gulp.src(srcPath + '/assets/css/main.scss')
 			.pipe(sourcemaps.init())
 			.pipe(sass().on('error', onError))
-			.pipe(autoprefixer({ browsers: ['last 100 versions'], cascade: false }))
+			.pipe(autoprefixer({ browsers: ['last 100 versions'] }))
+			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(devPath + '/assets/css'))
 			.pipe(rename({ suffix: '.min', prefix: '' }))
-			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(devPath + '/assets/css'))
 			.pipe(browserSync.stream());
 	}

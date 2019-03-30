@@ -1,14 +1,14 @@
-&.tabs {
-	.navigation-tabs {
-		.navigation-tab {
+.c-tabs {
+	&__head {
+		> .item {
 			&.is-active {
 			
 			}
 		}
 	}
 	
-	.content-tabs {
-		.content-tab {
+	&__body {
+		> .item {
 			display: none;
 			
 			&.is-active {

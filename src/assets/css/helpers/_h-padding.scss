@@ -1,0 +1,11 @@
+.h-padding {
+	&--bottom-d {
+		margin-bottom: $g-value-padding;
+	}
+}
+
+.h-padding-wrapper {
+	&--bottom-d {
+		margin-bottom: -$g-value-padding;
+	}
+}

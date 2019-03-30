@@ -1,17 +1,17 @@
-initNavigationUiModule();
+initNavigationComponentModule();
 
 $(window).resize(function() {
-	initNavigationUiModule();
+	initNavigationComponentModule();
 });
 
-function initNavigationUiModule() {
+function initNavigationComponentModule() {
 	
-	var $menuItemHasChildren = $('.ui.navigation .menu-item-has-children');
+	var $menuItemHasChildren = $('.c-navigation .menu-item-has-children');
 	
 	$menuItemHasChildren.find('> a').off();
 	$menuItemHasChildren.off();
 	
-	if ($(window).width() < $gridBreakpoints['md']) {
+	if ($(window).width() < $gGridBreakpoints['md']) {
 		$menuItemHasChildren.find('> a').click(function(e) {
 			e.preventDefault();
 			$(this).parent().toggleClass('is-opened');
