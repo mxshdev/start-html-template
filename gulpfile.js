@@ -15,6 +15,8 @@ var gulp = require('gulp'),
 	sourcemaps = require('gulp-sourcemaps'),
 	watch = require('gulp-watch'),
 	runSequence = require('run-sequence'),
+	htmlmin = require('gulp-htmlmin'),
+	imagemin = require('gulp-imagemin'),
 	del = require('del');
 
 // Build settings
@@ -35,7 +37,7 @@ var isDisableOptimize = !!argv.disableOptimize;
  * Browser Sync Init
  */
 
-gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets'], function() {
+gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets'], function () {
 	browserSync.init({
 		server: {
 			baseDir: devPath,
@@ -48,26 +50,26 @@ gulp.task('browser-sync', ['build-styles', 'build-scripts', 'build-scripts-vendo
  * Build styles
  */
 
-gulp.task('build-styles', function() {
+gulp.task('build-styles', function () {
 	if (isDisableOptimize) {
 		return gulp.src(srcPath + '/assets/css/main.scss')
 			.pipe(sourcemaps.init())
 			.pipe(sass().on('error', onError))
-			.pipe(autoprefixer({ browsers: ['last 100 versions'] }))
+			.pipe(autoprefixer({browsers: ['last 100 versions']}))
 			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(devPath + '/assets/css'))
-			.pipe(rename({ suffix: '.min', prefix: '' }))
+			.pipe(rename({suffix: '.min', prefix: ''}))
 			.pipe(gulp.dest(devPath + '/assets/css'))
 			.pipe(browserSync.stream());
 	}
 	return gulp.src(srcPath + '/assets/css/main.scss')
 		.pipe(sass().on('error', onError))
-		.pipe(autoprefixer({ browsers: ['last 100 versions'], cascade: false }))
+		.pipe(autoprefixer({browsers: ['last 100 versions'], cascade: false}))
 		.pipe(gulp.dest(distPath + '/assets/css'))
 		.pipe(csso({
 			comments: false
 		}))
-		.pipe(rename({ suffix: '.min', prefix: '' }))
+		.pipe(rename({suffix: '.min', prefix: ''}))
 		.pipe(gulp.dest(distPath + '/assets/css'))
 		.pipe(browserSync.stream());
 });
@@ -76,13 +78,13 @@ gulp.task('build-styles', function() {
  * Build scripts
  */
 
-gulp.task('build-scripts', function() {
+gulp.task('build-scripts', function () {
 	if (isDisableOptimize) {
 		return gulp.src(srcPath + '/assets/js/main.js')
 			.pipe(fileInclude('//@@'))
 			.pipe(gulp.dest(devPath + '/assets/js'))
 			.on('error', onError)
-			.pipe(rename({ suffix: '.min', prefix: '' }))
+			.pipe(rename({suffix: '.min', prefix: ''}))
 			.pipe(gulp.dest(devPath + '/assets/js'));
 	}
 	return gulp.src(srcPath + '/assets/js/main.js')
@@ -90,35 +92,55 @@ gulp.task('build-scripts', function() {
 		.pipe(gulp.dest(distPath + '/assets/js'))
 		.pipe(uglify())
 		.on('error', onError)
-		.pipe(rename({ suffix: '.min', prefix: '' }))
+		.pipe(rename({suffix: '.min', prefix: ''}))
 		.pipe(gulp.dest(distPath + '/assets/js'));
+});
+
+/**
+ * Optimize Images
+ */
+
+gulp.task('images', function () {
+	return gulp.src([srcPath + '/**/*.png', srcPath + '/**/*.svg', srcPath + '/**/*.jpg', srcPath + '/**/*.jpeg', srcPath + '/**/*.gif'])
+		.pipe(imagemin([
+			imagemin.gifsicle({interlaced: true, optimizationLevel: 3}),
+			imagemin.jpegtran({progressive: true}),
+			imagemin.optipng({optimizationLevel: 7}),
+			imagemin.svgo({
+				plugins: [
+					{removeViewBox: true},
+					{cleanupIDs: false}
+				]
+			})
+		]))
+		.pipe(gulp.dest(distPath));
 });
 
 /**
  * Copy assets
  */
 
-gulp.task('copy-assets', function() {
+gulp.task('copy-assets', function () {
 	// Copy fonts
 	gulp.src(srcPath + '/assets/font/**')
 		.pipe(gulp.dest(devPath + '/assets/font'))
 		.pipe(gulp.dest(distPath + '/assets/font'));
-	
+
 	// Copy and optimize images
 	gulp.src(srcPath + '/assets/img/**')
 		.pipe(gulp.dest(devPath + '/assets/img'))
 		.pipe(gulp.dest(distPath + '/assets/img'));
-	
+
 	// Copy php files
 	gulp.src(srcPath + '/assets/php/**')
 		.pipe(gulp.dest(devPath + '/assets/php'))
 		.pipe(gulp.dest(distPath + '/assets/php'));
-	
+
 	// Copy vendor
 	gulp.src(srcPath + '/assets/vendor/**')
 		.pipe(gulp.dest(devPath + '/assets/vendor'))
 		.pipe(gulp.dest(distPath + '/assets/vendor'));
-	
+
 	// Copy templates
 	gulp.src(srcPath + '/templates/**')
 		.pipe(gulp.dest(devPath + '/templates'))
@@ -129,9 +151,19 @@ gulp.task('copy-assets', function() {
  * Build templates
  */
 
-gulp.task('build-templates', function() {
+gulp.task('build-templates', function () {
 	return gulp.src(srcPath + '/templates/*.html')
 		.pipe(fileInclude('//@@'))
+		.pipe(htmlmin({
+			collapseWhitespace: false,
+			collapseInlineTagWhitespace: false,
+			minifyCSS: true,
+			minifyJS: true,
+			minifyURLs: true,
+			removeComments: true,
+			removeStyleLinkTypeAttributes: true,
+			removeScriptTypeAttributes: true
+		}))
 		.on('error', onError)
 		.pipe(gulp.dest(devPath))
 		.pipe(gulp.dest(distPath));
@@ -141,13 +173,13 @@ gulp.task('build-templates', function() {
  * Build vendor scripts
  */
 
-gulp.task('build-scripts-vendor', function() {
+gulp.task('build-scripts-vendor', function () {
 	if (isDisableOptimize) {
 		return gulp.src([srcPath + '/assets/js/vendor.js'])
 			.pipe(fileInclude('//@@'))
 			.pipe(gulp.dest(devPath + '/assets/js'))
 			.on('error', onError)
-			.pipe(rename({ suffix: '.min', prefix: '' }))
+			.pipe(rename({suffix: '.min', prefix: ''}))
 			.pipe(gulp.dest(devPath + '/assets/js'));
 	}
 	return gulp.src([srcPath + '/assets/js/vendor.js'])
@@ -155,7 +187,7 @@ gulp.task('build-scripts-vendor', function() {
 		.pipe(gulp.dest(devPath + '/assets/js'))
 		.pipe(uglify())
 		.on('error', onError)
-		.pipe(rename({ suffix: '.min', prefix: '' }))
+		.pipe(rename({suffix: '.min', prefix: ''}))
 		.pipe(gulp.dest(distPath + '/assets/js'));
 });
 
@@ -163,7 +195,7 @@ gulp.task('build-scripts-vendor', function() {
  * Reload browser
  */
 
-gulp.task('browser-reload', function() {
+gulp.task('browser-reload', function () {
 	return browserSync.reload();
 });
 
@@ -171,27 +203,27 @@ gulp.task('browser-reload', function() {
  * General watcher
  */
 
-gulp.task('watch', function() {
-	watch([srcPath + '/**/*.scss', srcPath + '/**/*.css'], function(e) {
+gulp.task('watch', function () {
+	watch([srcPath + '/**/*.scss', srcPath + '/**/*.css'], function (e) {
 		runSequence('build-styles');
 	});
-	watch([srcPath + '/assets/js/**/*.js'], function(e) {
+	watch([srcPath + '/assets/js/**/*.js'], function (e) {
 		runSequence('build-scripts', 'browser-reload');
 	});
-	watch([srcPath + '/assets/vendor/**/*.js', srcPath + '/assets/js/vendor.js'], function(e) {
+	watch([srcPath + '/assets/vendor/**/*.js', srcPath + '/assets/js/vendor.js'], function (e) {
 		runSequence('build-scripts-vendor', 'browser-reload');
 	});
-	watch(srcPath + '/**/*.html', function(e) {
+	watch(srcPath + '/**/*.html', function (e) {
 		runSequence('build-templates', 'browser-reload');
 	});
-	
+
 });
 
 /**
  * Create build archive
  */
 
-gulp.task('zip-build', function() {
+gulp.task('zip-build', function () {
 	return gulp.src(['./**', '!' + distPath + '/**', '!./node_modules/**', '!./node_modules', '!' + distPath])
 		.pipe(zip('src.zip'))
 		.pipe(gulp.dest('./'));
@@ -200,15 +232,15 @@ gulp.task('zip-build', function() {
 /**
  * Clean dist
  */
-gulp.task('clean-dist', function() {
-	del.sync(distPath + '/**', { force: true });
+gulp.task('clean-dist', function () {
+	del.sync(distPath + '/**', {force: true});
 });
 
 /**
  * Clean dev
  */
-gulp.task('clean-dev', function() {
-	del.sync(devPath + '/**', { force: true });
+gulp.task('clean-dev', function () {
+	del.sync(devPath + '/**', {force: true});
 });
 
 // Error handler
@@ -223,4 +255,4 @@ function onError(err) {
  */
 
 gulp.task('default', ['clean-dev', 'browser-sync', 'watch']);
-gulp.task('build', ['clean-dist', 'build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets']);
+gulp.task('build', ['clean-dist', 'build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets', 'images']);

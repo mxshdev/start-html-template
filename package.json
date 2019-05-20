@@ -25,5 +25,8 @@
 		"jquery": "^3.3.1",
 		"run-sequence": "^2.2.1",
 		"yargs": "^11.0.0"
+	},
+	"devDependencies": {
+		"gulp-htmlmin": "^5.0.1"
 	}
 }
