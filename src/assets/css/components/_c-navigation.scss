@@ -1,13 +1,13 @@
 .c-navigation {
-	.menu-item-has-children {
-		& > .sub-menu {
-			display: none;
-		}
-		
-		&.is-opened {
-			& > .sub-menu {
-				display: block;
-			}
-		}
-	}
+  .menu-item-has-children {
+    & > .sub-menu {
+      display: none;
+    }
+
+    &.is-opened {
+      & > .sub-menu {
+        display: block;
+      }
+    }
+  }
 }

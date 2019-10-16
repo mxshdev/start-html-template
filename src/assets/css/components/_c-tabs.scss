@@ -1,19 +1,19 @@
 .c-tabs {
-	&__head {
-		> .item {
-			&.is-active {
-			
-			}
-		}
-	}
-	
-	&__body {
-		> .item {
-			display: none;
-			
-			&.is-active {
-				display: block;
-			}
-		}
-	}
+  &__head {
+    > .item {
+      &.is-active {
+
+      }
+    }
+  }
+
+  &__body {
+    > .item {
+      display: none;
+
+      &.is-active {
+        display: block;
+      }
+    }
+  }
 }

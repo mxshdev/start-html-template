@@ -1,38 +1,43 @@
-// Mixin: lifehack for scroll
+@mixin h-general-transition($properties...) {
+  @if length($properties) == 0 {
+    $properties: all;
+  }
 
-@mixin scrolled {
-	overflow-scrolling: touch;
-	-webkit-overflow-scrolling: touch;
-	transform: translateZ(0px);
+  @include media-breakpoint-up(md) {
+    transition-property: $properties;
+    transition-duration: $g-value-animation-duration;
+    transition-timing-function: $g-value-animation-function;
+  }
 }
 
-// Mixin: General transition
-
-@mixin general-transition($properties...) {
-	@if length($properties) == 0 {
-		$properties: all;
-	}
-	
-	@include media-breakpoint-up(md) {
-		transition-property: $properties;
-		transition-duration: $g-value-animation-duration;
-		transition-timing-function: $g-value-animation-function;
-	}
+@mixin h-scrolled {
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 
-// Mixin: Hide Scroll
-
-@mixin hide-scroll {
-	-ms-overflow-style: none;
-	overflow: -moz-scrollbars-none;
-	
-	&::-webkit-scrollbar {
-		display: none;
-	}
+@mixin h-transition-performance {
+  will-change: transform;
 }
 
-// Action Helpers
+@mixin h-hide-scroll {
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
+@mixin h-ellipsis-text {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .is-disabled {
-	pointer-events: none !important;
+  pointer-events: none !important;
 }

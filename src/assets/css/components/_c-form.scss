@@ -1,16 +1,16 @@
 .c-form-section {
-	margin-bottom: $g-value-padding;
+  margin-bottom: $g-value-padding;
 }
 
 .c-form-field {
-	label {
-		cursor: pointer;
-		user-select: none;
-	}
-	
-	input, select, textarea {
-		width: 100%;
-		display: block;
-		position: relative;
-	}
+  label {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    display: block;
+    position: relative;
+  }
 }
