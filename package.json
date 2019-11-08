@@ -16,6 +16,8 @@
     "gulp-autoprefixer": "^5.0.0",
     "gulp-csso": "^3.0.0",
     "gulp-file-include": "^2.0.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^6.1.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
@@ -25,8 +27,5 @@
     "jquery": "^3.3.1",
     "run-sequence": "^2.2.1",
     "yargs": "^11.0.0"
-  },
-  "devDependencies": {
-    "gulp-htmlmin": "^5.0.1"
   }
 }
