@@ -1,11 +1,11 @@
-.h-padding {
-  &--bottom-d {
-    margin-bottom: $g-value-padding;
+.h-m {
+  &b-d {
+    margin-bottom: $g-value-padding * 2;
   }
 }
 
-.h-padding-wrapper {
-  &--bottom-d {
-    margin-bottom: -$g-value-padding;
+.-h-m {
+  &b-d {
+    margin-bottom: -$g-value-padding * 2;
   }
 }

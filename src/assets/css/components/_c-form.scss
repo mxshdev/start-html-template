@@ -1,5 +1,7 @@
-.c-form-section {
-  margin-bottom: $g-value-padding;
+.c-form {
+  &__row {
+    margin-bottom: $g-value-padding;
+  }
 }
 
 .c-form-field {
@@ -12,5 +14,14 @@
     width: 100%;
     display: block;
     position: relative;
+    appearance: none;
+
+    option {
+      color: $g-color-body;
+    }
+  }
+
+  textarea {
+    min-height: 145px;
   }
 }
