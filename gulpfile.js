@@ -57,7 +57,7 @@ function buildFonts(cb) {
             iconfontCss({
                 fontName: "tpl-font-icons",
                 cssClass: "h-font-icon",
-                targetPath: "_font-icons.scss",
+                targetPath: "_tpl-font-icons.scss",
                 fontPath: "assets/font/tpl-font-icons/"
             })
         )
