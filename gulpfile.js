@@ -51,19 +51,19 @@ function browser() {
  */
 
 function buildFonts(cb) {
-    del.sync(srcPath + '/assets/font/font-icons', {force: true});
-    gulp.src(srcPath + "/assets/img/font-icons/**/*.svg")
+    del.sync(srcPath + '/assets/font/tpl-font-icons', {force: true});
+    gulp.src(srcPath + "/assets/img/tpl-font-icons/**/*.svg")
         .pipe(
             iconfontCss({
-                fontName: "font-icons",
+                fontName: "tpl-font-icons",
                 cssClass: "h-font-icon",
                 targetPath: "_font-icons.scss",
-                fontPath: "assets/font/font-icons/"
+                fontPath: "assets/font/tpl-font-icons/"
             })
         )
         .pipe(
             iconfont({
-                fontName: "font-icons",
+                fontName: "tpl-font-icons",
                 prependUnicode: true,
                 normalize: true,
                 fontHeight: 5000,
@@ -71,7 +71,7 @@ function buildFonts(cb) {
                 formats: ["svg", "ttf", "eot", "woff", "woff2"]
             })
         )
-        .pipe(gulp.dest(srcPath + "/assets/font/font-icons"));
+        .pipe(gulp.dest(srcPath + "/assets/font/tpl-font-icons"));
     cb();
 }
 
