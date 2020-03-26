@@ -4,7 +4,7 @@
 
 $(function() {
 	
-	//@@include('global/_global.js')
-	//@@include('components/_components.js')
+	//@@include('global/_index.js')
+	//@@include('components/_index.js')
 	
 });

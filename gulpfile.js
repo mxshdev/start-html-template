@@ -15,6 +15,8 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     htmlmin = require('gulp-htmlmin'),
     imagemin = require('gulp-imagemin'),
+    iconfont = require("gulp-iconfont"),
+    iconfontCss = require("gulp-iconfont-css"),
     del = require('del');
 
 // Build settings
@@ -35,20 +37,49 @@ var isDisableOptimize = !!argv.disableOptimize;
  * Browser Sync Init
  */
 
-gulp.task('browser-sync', function (cb) {
+function browser() {
     browserSync.init({
         server: {
             baseDir: devPath,
             index: 'index.html'
         }
     });
-});
+}
+
+/**
+ * Build fonts
+ */
+
+function buildFonts(cb) {
+    del.sync(srcPath + '/assets/font/font-icons', {force: true});
+    gulp.src(srcPath + "/assets/img/font-icons/**/*.svg")
+        .pipe(
+            iconfontCss({
+                fontName: "font-icons",
+                cssClass: "h-font-icon",
+                targetPath: "_font-icons.scss",
+                fontPath: "assets/font/font-icons/"
+            })
+        )
+        .pipe(
+            iconfont({
+                fontName: "font-icons",
+                prependUnicode: true,
+                normalize: true,
+                fontHeight: 5000,
+                centerHorizontally: true,
+                formats: ["svg", "ttf", "eot", "woff", "woff2"]
+            })
+        )
+        .pipe(gulp.dest(srcPath + "/assets/font/font-icons"));
+    cb();
+}
 
 /**
  * Build styles
  */
 
-gulp.task('build-styles', function (cb) {
+function buildStyles(cb) {
     if (isDisableOptimize) {
         gulp.src(srcPath + '/assets/css/main.scss')
             .pipe(sourcemaps.init())
@@ -60,25 +91,26 @@ gulp.task('build-styles', function (cb) {
             .pipe(gulp.dest(devPath + '/assets/css'))
             .pipe(browserSync.stream());
         cb();
+    } else {
+        gulp.src(srcPath + '/assets/css/main.scss')
+            .pipe(sass().on('error', onError))
+            .pipe(autoprefixer({overrideBrowserslist: ['last 100 versions'], cascade: false}))
+            .pipe(gulp.dest(distPath + '/assets/css'))
+            .pipe(csso({
+                comments: false
+            }))
+            .pipe(rename({suffix: '.min', prefix: ''}))
+            .pipe(gulp.dest(distPath + '/assets/css'))
+            .pipe(browserSync.stream());
+        cb();
     }
-    gulp.src(srcPath + '/assets/css/main.scss')
-        .pipe(sass().on('error', onError))
-        .pipe(autoprefixer({overrideBrowserslist: ['last 100 versions'], cascade: false}))
-        .pipe(gulp.dest(distPath + '/assets/css'))
-        .pipe(csso({
-            comments: false
-        }))
-        .pipe(rename({suffix: '.min', prefix: ''}))
-        .pipe(gulp.dest(distPath + '/assets/css'))
-        .pipe(browserSync.stream());
-    cb();
-});
+}
 
 /**
  * Build scripts
  */
 
-gulp.task('build-scripts', function (cb) {
+function buildScripts(cb) {
     if (isDisableOptimize) {
         gulp.src(srcPath + '/assets/js/main.js')
             .pipe(fileInclude('//@@'))
@@ -87,26 +119,27 @@ gulp.task('build-scripts', function (cb) {
             .pipe(rename({suffix: '.min', prefix: ''}))
             .pipe(gulp.dest(devPath + '/assets/js'));
         cb();
+    } else {
+        gulp.src(srcPath + '/assets/js/main.js')
+            .pipe(fileInclude('//@@'))
+            .pipe(gulp.dest(distPath + '/assets/js'))
+            .pipe(uglify())
+            .on('error', onError)
+            .pipe(rename({suffix: '.min', prefix: ''}))
+            .pipe(gulp.dest(distPath + '/assets/js'));
+        cb();
     }
-    gulp.src(srcPath + '/assets/js/main.js')
-        .pipe(fileInclude('//@@'))
-        .pipe(gulp.dest(distPath + '/assets/js'))
-        .pipe(uglify())
-        .on('error', onError)
-        .pipe(rename({suffix: '.min', prefix: ''}))
-        .pipe(gulp.dest(distPath + '/assets/js'));
-    cb();
-});
+}
 
 /**
  * Optimize Images
  */
 
-gulp.task('images', function (cb) {
+function images(cb) {
     gulp.src([srcPath + '/**/*.png', srcPath + '/**/*.svg', srcPath + '/**/*.jpg', srcPath + '/**/*.jpeg', srcPath + '/**/*.gif'])
         .pipe(imagemin([
             imagemin.gifsicle({interlaced: true, optimizationLevel: 3}),
-            imagemin.jpegtran({progressive: true}),
+            imagemin.mozjpeg({progressive: true}),
             imagemin.optipng({optimizationLevel: 7}),
             imagemin.svgo({
                 plugins: [
@@ -117,69 +150,95 @@ gulp.task('images', function (cb) {
         ]))
         .pipe(gulp.dest(distPath));
     cb();
-});
+}
 
 /**
  * Copy assets
  */
 
-gulp.task('copy-assets', function (cb) {
-    // Copy fonts
-    gulp.src(srcPath + '/assets/font/**')
-        .pipe(gulp.dest(devPath + '/assets/font'))
-        .pipe(gulp.dest(distPath + '/assets/font'));
+function copyAssets(cb) {
+    if (isDisableOptimize) {
+        // Copy fonts
+        gulp.src(srcPath + '/assets/font/**')
+            .pipe(gulp.dest(devPath + '/assets/font'));
 
-    // Copy and optimize images
-    gulp.src(srcPath + '/assets/img/**')
-        .pipe(gulp.dest(devPath + '/assets/img'))
-        .pipe(gulp.dest(distPath + '/assets/img'));
+        // Copy and optimize images
+        gulp.src(srcPath + '/assets/img/**')
+            .pipe(gulp.dest(devPath + '/assets/img'));
 
-    // Copy php files
-    gulp.src(srcPath + '/assets/php/**')
-        .pipe(gulp.dest(devPath + '/assets/php'))
-        .pipe(gulp.dest(distPath + '/assets/php'));
+        // Copy php files
+        gulp.src(srcPath + '/assets/php/**')
+            .pipe(gulp.dest(devPath + '/assets/php'));
 
-    // Copy vendor
-    gulp.src(srcPath + '/assets/vendor/**')
-        .pipe(gulp.dest(devPath + '/assets/vendor'))
-        .pipe(gulp.dest(distPath + '/assets/vendor'));
+        // Copy vendor
+        gulp.src(srcPath + '/assets/vendor/**')
+            .pipe(gulp.dest(devPath + '/assets/vendor'));
 
-    // Copy templates
-    gulp.src(srcPath + '/templates/**')
-        .pipe(gulp.dest(devPath + '/templates'))
-        .pipe(gulp.dest(distPath + '/templates'));
+        // Copy templates
+        gulp.src(srcPath + '/templates/**')
+            .pipe(gulp.dest(devPath + '/templates'));
 
-    cb();
-});
+        cb();
+    } else {
+        // Copy fonts
+        gulp.src(srcPath + '/assets/font/**')
+            .pipe(gulp.dest(distPath + '/assets/font'));
+
+        // Copy and optimize images
+        gulp.src(srcPath + '/assets/img/**')
+            .pipe(gulp.dest(distPath + '/assets/img'));
+
+        // Copy php files
+        gulp.src(srcPath + '/assets/php/**')
+            .pipe(gulp.dest(distPath + '/assets/php'));
+
+        // Copy vendor
+        gulp.src(srcPath + '/assets/vendor/**')
+            .pipe(gulp.dest(distPath + '/assets/vendor'));
+
+        // Copy templates
+        gulp.src(srcPath + '/templates/**')
+            .pipe(gulp.dest(distPath + '/templates'));
+
+        cb();
+    }
+}
 
 /**
  * Build templates
  */
 
-gulp.task('build-templates', function (cb) {
-    gulp.src(srcPath + '/templates/*.html')
-        .pipe(fileInclude('//@@'))
-        .pipe(htmlmin({
-            collapseWhitespace: false,
-            collapseInlineTagWhitespace: false,
-            minifyCSS: true,
-            minifyJS: true,
-            minifyURLs: true,
-            removeComments: true,
-            removeStyleLinkTypeAttributes: true,
-            removeScriptTypeAttributes: true
-        }))
-        .on('error', onError)
-        .pipe(gulp.dest(devPath))
-        .pipe(gulp.dest(distPath));
-    cb();
-});
+function buildTemplates(cb) {
+    if (isDisableOptimize) {
+        gulp.src(srcPath + '/templates/*.html')
+            .pipe(fileInclude('//@@'))
+            .on('error', onError)
+            .pipe(gulp.dest(devPath));
+        cb();
+    } else {
+        gulp.src(srcPath + '/templates/*.html')
+            .pipe(fileInclude('//@@'))
+            .pipe(htmlmin({
+                collapseWhitespace: false,
+                collapseInlineTagWhitespace: false,
+                minifyCSS: true,
+                minifyJS: true,
+                minifyURLs: true,
+                removeComments: true,
+                removeStyleLinkTypeAttributes: true,
+                removeScriptTypeAttributes: true
+            }))
+            .on('error', onError)
+            .pipe(gulp.dest(distPath));
+        cb();
+    }
+}
 
 /**
  * Build vendor scripts
  */
 
-gulp.task('build-scripts-vendor', function (cb) {
+function buildScriptsVendor(cb) {
     if (isDisableOptimize) {
         gulp.src([srcPath + '/assets/js/vendor.js'])
             .pipe(fileInclude('//@@'))
@@ -188,63 +247,64 @@ gulp.task('build-scripts-vendor', function (cb) {
             .pipe(rename({suffix: '.min', prefix: ''}))
             .pipe(gulp.dest(devPath + '/assets/js'));
         cb();
+    } else {
+        gulp.src([srcPath + '/assets/js/vendor.js'])
+            .pipe(fileInclude('//@@'))
+            .pipe(gulp.dest(distPath + '/assets/js'))
+            .pipe(uglify())
+            .on('error', onError)
+            .pipe(rename({suffix: '.min', prefix: ''}))
+            .pipe(gulp.dest(distPath + '/assets/js'));
+        cb();
     }
-    gulp.src([srcPath + '/assets/js/vendor.js'])
-        .pipe(fileInclude('//@@'))
-        .pipe(gulp.dest(devPath + '/assets/js'))
-        .pipe(uglify())
-        .on('error', onError)
-        .pipe(rename({suffix: '.min', prefix: ''}))
-        .pipe(gulp.dest(distPath + '/assets/js'));
-    cb();
-});
+}
 
 /**
  * Reload browser
  */
 
-gulp.task('browser-reload', function (cb) {
+function browserReload(cb) {
     browserSync.reload();
     cb();
-});
+}
 
 /**
  * General watcher
  */
 
-gulp.task('watch', function (cb) {
-    gulp.watch([srcPath + '/**/*.scss', srcPath + '/**/*.css'], gulp.series('build-styles'));
-    gulp.watch([srcPath + '/assets/js/**/*.js'], gulp.series('build-scripts', 'browser-reload'));
-    gulp.watch([srcPath + '/assets/vendor/**/*.js', srcPath + '/assets/js/vendor.js'], gulp.series('build-scripts-vendor', 'browser-reload'));
-    gulp.watch(srcPath + '/**/*.html', gulp.series('build-templates', 'browser-reload'));
-});
+function watch() {
+    gulp.watch([srcPath + '/**/*.scss', srcPath + '/**/*.css'], gulp.series(buildStyles));
+    gulp.watch([srcPath + '/assets/js/**/*.js'], gulp.series(buildScripts, browserReload));
+    gulp.watch([srcPath + '/assets/vendor/**/*.js', srcPath + '/assets/js/vendor.js'], gulp.series(buildScriptsVendor, browserReload));
+    gulp.watch([srcPath + '/templates/**/*.html'], gulp.series(buildTemplates, browserReload));
+}
 
 /**
  * Create build archive
  */
 
-gulp.task('zip-build', function (cb) {
-    gulp.src(['./**', '!' + distPath + '/**', '!./node_modules/**', '!./node_modules', '!' + distPath])
+function zipBuild(cb) {
+    gulp.src(['./**', '!' + distPath + '/**', '!' + distPath, '!' + devPath + '/**', '!' + devPath, '!./node_modules/**', '!./node_modules', '!./package-lock.json', '!./src.zip'])
         .pipe(zip('src.zip'))
         .pipe(gulp.dest('./'));
     cb();
-});
+}
 
 /**
  * Clean dist
  */
-gulp.task('clean-dist', function (cb) {
+function cleanDist(cb) {
     del.sync(distPath + '/**', {force: true});
     cb();
-});
+}
 
 /**
  * Clean dev
  */
-gulp.task('clean-dev', function (cb) {
+function cleanDev(cb) {
     del.sync(devPath + '/**', {force: true});
     cb();
-});
+}
 
 // Error handler
 
@@ -257,5 +317,6 @@ function onError(err) {
  * Gulp Start
  */
 
-gulp.task('default', gulp.series('clean-dev', 'build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets', gulp.parallel('browser-sync', 'watch')));
-gulp.task('build', gulp.series('clean-dist', 'build-styles', 'build-scripts', 'build-scripts-vendor', 'build-templates', 'copy-assets', 'images'));
+exports.default = gulp.series(cleanDev, buildFonts, buildStyles, buildScripts, buildScriptsVendor, buildTemplates, copyAssets, gulp.parallel(browser, watch));
+exports.build = gulp.series(cleanDist, buildFonts, buildStyles, buildScripts, buildScriptsVendor, buildTemplates, copyAssets, images);
+exports.zip = gulp.series(cleanDist, cleanDev, zipBuild);

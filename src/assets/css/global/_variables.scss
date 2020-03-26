@@ -15,3 +15,33 @@ $g-value-border-radius: 0px;
 // Global Fonts
 
 $g-font-family-base: sans-serif;
+
+// animatewithsass
+
+$durationDefault: $g-value-animation-duration !default;
+$functionDefault: $g-value-animation-function !default;
+
+// Bootstrap Config
+
+$grid-breakpoints: (
+        xs: 0,
+        sm: 568px,
+        md: 768px,
+        lg: 1024px,
+        xl: 1280px
+) !default;
+
+$container-max-widths: (
+        sm: 522px + 30px,
+        md: 708px + 30px,
+        lg: 944px + 30px,
+        xl: 1180px + 30px
+) !default;
+
+$grid-gutters: (
+        xs: 10px,
+        sm: 18px,
+        md: 12px,
+        lg: 16px,
+        xl: 10px,
+) !default;

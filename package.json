@@ -6,9 +6,11 @@
   "scripts": {
     "init": "npm i",
     "build": "npx gulp build",
-    "serve": "npx gulp --disable-optimize"
+    "serve": "npx gulp --disable-optimize",
+    "zip": "npx gulp zip-build"
   },
   "dependencies": {
+    "animatewithsass": "^3.2.1",
     "bootstrap": "^4.4.1",
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
@@ -17,6 +19,8 @@
     "gulp-csso": "^4.0.1",
     "gulp-file-include": "^2.1.1",
     "gulp-htmlmin": "^5.0.1",
+    "gulp-iconfont": "^10.0.3",
+    "gulp-iconfont-css": "^3.0.0",
     "gulp-imagemin": "^7.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.0.2",
@@ -26,6 +30,7 @@
     "gulp-zip": "^5.0.1",
     "jquery": "^3.4.1",
     "run-sequence": "^2.2.1",
-    "yargs": "^15.1.0"
+    "vh-check": "^2.0.5",
+    "yargs": "^15.3.1"
   }
 }
