@@ -17,6 +17,7 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     iconfont = require("gulp-iconfont"),
     iconfontCss = require("gulp-iconfont-css"),
+    webp = require('gulp-webp'),
     del = require('del');
 
 // Build settings
@@ -51,19 +52,19 @@ function browser() {
  */
 
 function buildFonts(cb) {
-    del.sync(srcPath + '/assets/font/tpl-font-icons', {force: true});
-    gulp.src(srcPath + "/assets/img/tpl-font-icons/**/*.svg")
+    del.sync([srcPath + '/assets/font/tpl-icons/']);
+    return gulp.src(srcPath + "/assets/img/tpl-icons/**/*.svg")
         .pipe(
             iconfontCss({
-                fontName: "tpl-font-icons",
-                cssClass: "h-font-icon",
-                targetPath: "_tpl-font-icons.scss",
-                fontPath: "assets/font/tpl-font-icons/"
+                fontName: "tpl-icons",
+                cssClass: "h-tpl-icon",
+                targetPath: "_index.scss",
+                fontPath: "../font/tpl-icons/"
             })
         )
         .pipe(
             iconfont({
-                fontName: "tpl-font-icons",
+                fontName: "tpl-icons",
                 prependUnicode: true,
                 normalize: true,
                 fontHeight: 5000,
@@ -71,8 +72,7 @@ function buildFonts(cb) {
                 formats: ["svg", "ttf", "eot", "woff", "woff2"]
             })
         )
-        .pipe(gulp.dest(srcPath + "/assets/font/tpl-font-icons"));
-    cb();
+        .pipe(gulp.dest(srcPath + "/assets/font/tpl-icons"));
 }
 
 /**
@@ -81,7 +81,7 @@ function buildFonts(cb) {
 
 function buildStyles(cb) {
     if (isDisableOptimize) {
-        gulp.src(srcPath + '/assets/css/main.scss')
+        return gulp.src(srcPath + '/assets/css/main.scss')
             .pipe(sourcemaps.init())
             .pipe(sass().on('error', onError))
             .pipe(autoprefixer({overrideBrowserslist: ['last 100 versions']}))
@@ -90,9 +90,8 @@ function buildStyles(cb) {
             .pipe(rename({suffix: '.min', prefix: ''}))
             .pipe(gulp.dest(devPath + '/assets/css'))
             .pipe(browserSync.stream());
-        cb();
     } else {
-        gulp.src(srcPath + '/assets/css/main.scss')
+        return gulp.src(srcPath + '/assets/css/main.scss')
             .pipe(sass().on('error', onError))
             .pipe(autoprefixer({overrideBrowserslist: ['last 100 versions'], cascade: false}))
             .pipe(gulp.dest(distPath + '/assets/css'))
@@ -102,7 +101,6 @@ function buildStyles(cb) {
             .pipe(rename({suffix: '.min', prefix: ''}))
             .pipe(gulp.dest(distPath + '/assets/css'))
             .pipe(browserSync.stream());
-        cb();
     }
 }
 
@@ -112,22 +110,20 @@ function buildStyles(cb) {
 
 function buildScripts(cb) {
     if (isDisableOptimize) {
-        gulp.src(srcPath + '/assets/js/main.js')
+        return gulp.src(srcPath + '/assets/js/main.js')
             .pipe(fileInclude('//@@'))
             .pipe(gulp.dest(devPath + '/assets/js'))
             .on('error', onError)
             .pipe(rename({suffix: '.min', prefix: ''}))
             .pipe(gulp.dest(devPath + '/assets/js'));
-        cb();
     } else {
-        gulp.src(srcPath + '/assets/js/main.js')
+        return gulp.src(srcPath + '/assets/js/main.js')
             .pipe(fileInclude('//@@'))
             .pipe(gulp.dest(distPath + '/assets/js'))
             .pipe(uglify())
             .on('error', onError)
             .pipe(rename({suffix: '.min', prefix: ''}))
             .pipe(gulp.dest(distPath + '/assets/js'));
-        cb();
     }
 }
 
@@ -136,7 +132,7 @@ function buildScripts(cb) {
  */
 
 function images(cb) {
-    gulp.src([srcPath + '/**/*.png', srcPath + '/**/*.svg', srcPath + '/**/*.jpg', srcPath + '/**/*.jpeg', srcPath + '/**/*.gif'])
+    return gulp.src([srcPath + '/**/*.png', srcPath + '/**/*.svg', srcPath + '/**/*.jpg', srcPath + '/**/*.jpeg', srcPath + '/**/*.gif'])
         .pipe(imagemin([
             imagemin.gifsicle({interlaced: true, optimizationLevel: 3}),
             imagemin.mozjpeg({progressive: true}),
@@ -148,8 +144,10 @@ function images(cb) {
                 ]
             })
         ]))
+        .pipe(webp({
+            lossless: true
+        }))
         .pipe(gulp.dest(distPath));
-    cb();
 }
 
 /**
@@ -175,10 +173,8 @@ function copyAssets(cb) {
             .pipe(gulp.dest(devPath + '/assets/vendor'));
 
         // Copy templates
-        gulp.src(srcPath + '/templates/**')
+        return gulp.src(srcPath + '/templates/**')
             .pipe(gulp.dest(devPath + '/templates'));
-
-        cb();
     } else {
         // Copy fonts
         gulp.src(srcPath + '/assets/font/**')
@@ -197,10 +193,8 @@ function copyAssets(cb) {
             .pipe(gulp.dest(distPath + '/assets/vendor'));
 
         // Copy templates
-        gulp.src(srcPath + '/templates/**')
+        return gulp.src(srcPath + '/templates/**')
             .pipe(gulp.dest(distPath + '/templates'));
-
-        cb();
     }
 }
 
@@ -210,13 +204,12 @@ function copyAssets(cb) {
 
 function buildTemplates(cb) {
     if (isDisableOptimize) {
-        gulp.src(srcPath + '/templates/*.html')
+        return gulp.src(srcPath + '/templates/*.html')
             .pipe(fileInclude('//@@'))
             .on('error', onError)
             .pipe(gulp.dest(devPath));
-        cb();
     } else {
-        gulp.src(srcPath + '/templates/*.html')
+        return gulp.src(srcPath + '/templates/*.html')
             .pipe(fileInclude('//@@'))
             .pipe(htmlmin({
                 collapseWhitespace: false,
@@ -230,7 +223,6 @@ function buildTemplates(cb) {
             }))
             .on('error', onError)
             .pipe(gulp.dest(distPath));
-        cb();
     }
 }
 
@@ -240,22 +232,20 @@ function buildTemplates(cb) {
 
 function buildScriptsVendor(cb) {
     if (isDisableOptimize) {
-        gulp.src([srcPath + '/assets/js/vendor.js'])
+        return gulp.src([srcPath + '/assets/js/vendor.js'])
             .pipe(fileInclude('//@@'))
             .pipe(gulp.dest(devPath + '/assets/js'))
             .on('error', onError)
             .pipe(rename({suffix: '.min', prefix: ''}))
             .pipe(gulp.dest(devPath + '/assets/js'));
-        cb();
     } else {
-        gulp.src([srcPath + '/assets/js/vendor.js'])
+        return gulp.src([srcPath + '/assets/js/vendor.js'])
             .pipe(fileInclude('//@@'))
             .pipe(gulp.dest(distPath + '/assets/js'))
             .pipe(uglify())
             .on('error', onError)
             .pipe(rename({suffix: '.min', prefix: ''}))
             .pipe(gulp.dest(distPath + '/assets/js'));
-        cb();
     }
 }
 
@@ -294,7 +284,7 @@ function zipBuild(cb) {
  * Clean dist
  */
 function cleanDist(cb) {
-    del.sync(distPath + '/**', {force: true});
+    del.sync([distPath]);
     cb();
 }
 
@@ -302,7 +292,7 @@ function cleanDist(cb) {
  * Clean dev
  */
 function cleanDev(cb) {
-    del.sync(devPath + '/**', {force: true});
+    del.sync([devPath]);
     cb();
 }
 
