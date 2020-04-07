@@ -2,7 +2,7 @@
  * General variables
  */
 
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     csso = require('gulp-csso'),
     rename = require('gulp-rename'),
     browserSync = require('browser-sync'),
@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     fileInclude = require('gulp-file-include'),
     argv = require('yargs').argv,
     sass = require('gulp-sass'),
+    tildeImporter = require('node-sass-tilde-importer'),
     zip = require('gulp-zip'),
     sourcemaps = require('gulp-sourcemaps'),
     htmlmin = require('gulp-htmlmin'),
@@ -22,9 +23,9 @@ var gulp = require('gulp'),
 
 // Build settings
 
-var srcPath = './src';
-var devPath = './dev';
-var distPath = './dist';
+let srcPath = './src';
+let devPath = './dev';
+let distPath = './dist';
 
 if (argv.srcPath === 'this') {
     srcPath = '..';
@@ -32,7 +33,7 @@ if (argv.srcPath === 'this') {
     devPath = '..';
 }
 
-var isDisableOptimize = !!argv.disableOptimize;
+const isDisableOptimize = !!argv.disableOptimize;
 
 /**
  * Browser Sync Init
@@ -83,7 +84,9 @@ function buildStyles(cb) {
     if (isDisableOptimize) {
         return gulp.src(srcPath + '/assets/css/main.scss')
             .pipe(sourcemaps.init())
-            .pipe(sass().on('error', onError))
+            .pipe(sass({
+                importer: tildeImporter
+            }).on('error', onError))
             .pipe(autoprefixer({overrideBrowserslist: ['last 100 versions']}))
             .pipe(sourcemaps.write())
             .pipe(gulp.dest(devPath + '/assets/css'))
@@ -92,7 +95,9 @@ function buildStyles(cb) {
             .pipe(browserSync.stream());
     } else {
         return gulp.src(srcPath + '/assets/css/main.scss')
-            .pipe(sass().on('error', onError))
+            .pipe(sass({
+                importer: tildeImporter
+            }).on('error', onError))
             .pipe(autoprefixer({overrideBrowserslist: ['last 100 versions'], cascade: false}))
             .pipe(gulp.dest(distPath + '/assets/css'))
             .pipe(csso({

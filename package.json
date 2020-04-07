@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "start-html-template",
   "main": "gulpfile.js",
   "author": "Shmasya",
   "license": "ISC",
@@ -12,6 +12,10 @@
   "dependencies": {
     "animatewithsass": "^3.2.1",
     "bootstrap": "^4.4.1",
+    "vh-check": "^2.0.5",
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
@@ -29,9 +33,8 @@
     "gulp-watch": "^5.0.1",
     "gulp-webp": "^4.0.1",
     "gulp-zip": "^5.0.1",
-    "jquery": "^3.4.1",
+    "node-sass-tilde-importer": "^1.0.2",
     "run-sequence": "^2.2.1",
-    "vh-check": "^2.0.5",
     "yargs": "^15.3.1"
   }
 }

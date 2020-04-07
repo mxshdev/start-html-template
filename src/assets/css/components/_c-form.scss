@@ -3,25 +3,3 @@
     margin-bottom: $g-value-padding;
   }
 }
-
-.c-form-field {
-  label {
-    cursor: pointer;
-    user-select: none;
-  }
-
-  input, select, textarea {
-    width: 100%;
-    display: block;
-    position: relative;
-    appearance: none;
-
-    option {
-      color: $g-color-body;
-    }
-  }
-
-  textarea {
-    min-height: 145px;
-  }
-}
