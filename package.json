@@ -6,7 +6,7 @@
   "scripts": {
     "init": "npm i",
     "build": "npx gulp build",
-    "serve": "npx gulp --disable-optimize",
+    "start": "npx gulp --disable-optimize",
     "zip": "npx gulp zip"
   },
   "dependencies": {
