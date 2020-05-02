@@ -1,4 +1,4 @@
-@mixin h-general-transition($properties...) {
+@mixin m-general-transition($properties...) {
   @if length($properties) == 0 {
     $properties: all;
   }
@@ -10,16 +10,16 @@
   }
 }
 
-@mixin h-scrolled {
+@mixin m-scrolled {
   overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
 }
 
-@mixin h-transition-performance {
+@mixin m-transition-performance {
   will-change: transform;
 }
 
-@mixin h-hide-scroll {
+@mixin m-hide-scroll {
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;
 
@@ -31,7 +31,7 @@
   }
 }
 
-@mixin h-ellipsis-text {
+@mixin m-ellipsis-text {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
